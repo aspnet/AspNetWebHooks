@@ -1,6 +1,7 @@
 # Microsoft ASP.NET WebHooks
+## Note: This repo is solely for the ASP.NET WebHooks projects (libraries to create and consume WebHooks on ASP.NET 4.x). For ASP.NET Core WebHooks (targeting .NET Standard 2.0), see the [aspnet/WebHooks](https://github.com/aspnet/AspNetWebHooks) repo.
 
-AppVeyor: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/aspnet/webhooks?branch=dev&svg=true)](https://ci.appveyor.com/project/aspnetci/webhooks/branch/dev)
+AppVeyor: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/aspnet/aspnetwebhooks?branch=dev&svg=true)](https://ci.appveyor.com/project/aspnetci/webhooks/branch/dev)
 
 ASP.NET Web Hooks provide support for sending and receiving WebHooks. 
 
@@ -24,19 +25,6 @@ See the initial [documentation](https://go.microsoft.com/fwlink/?LinkId=690277) 
 - [Stripe](/samples/StripeReceiver)
 - [VSTS](/samples/VstsReceiver)
 - [Zendesk](/samples/ZendeskReceiver)
-
-#### ASP.NET Core
-- [Azure](/samples/AzureAlertCoreReceiver)
-- [Bitbucket](/samples/BitbucketCoreReceiver)
-- [Dropbox](/samples/DropboxCoreReceiver)
-- [DynamicCRM](/samples/DynamicsCRMCoreReceiver)
-- [GitHub](/samples/GitHubCoreReceiver)
-- [Kudu](/samples/KuduCoreReceiver)
-- [MailChimp](/samples/MailChimpCoreReceiver)
-- [Pusher](/samples/PusherCoreReceiver)
-- [SalesForce](/samples/SalesforceCoreReceiver)
-- [Slack](/samples/SlackCoreReceiver)
-- [Stripe](/samples/StripeCoreReceiver)
 
 ### Resources
 * Overview
