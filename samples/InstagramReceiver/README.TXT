@@ -28,8 +28,7 @@ You don't have to be logged in using your Instagram credentials to subscribe or 
 using Instagram credentials is so that the server can download media from your Instagram when you post data and a 
 WebHook notification is received.
 
-See http://www.oauthforaspnet.com/providers/instagram/ for information about how to register an application with Instagram 
-and how to authenticate it. 
+See https://github.com/TerribleDev/OwinOAuthProviders for information about the Owin.Security.Providers package used in this sample.
 
 To test locally and in a deployed Web site, set the redirect URI for the Instagram app to these two entries:
 
