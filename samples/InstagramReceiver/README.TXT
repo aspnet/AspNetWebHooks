@@ -13,7 +13,7 @@ to differentiate between multiple WebHooks, for example 'secret0, id1=secret1, i
 Also, set the MS_WebHookReceiverSecret_InstagramId application setting to the application id, again optionally using IDs
 to differentiate between multiple WebHooks, for example '<c>secret0, id1=secret1, id2=secret2'.
 
-We use InstaSharp to subscribe, unsubscribe, as well as for downloading media from Instagram, see https://instasharp.github.io/InstaSharp/
+We use InstaSharp to subscribe, unsubscribe, as well as for downloading media from Instagram, see http://instasharp.github.io/InstaSharp/
 for details. 
 
 To subscribe to instagram, send an empty POST request to
@@ -28,7 +28,7 @@ You don't have to be logged in using your Instagram credentials to subscribe or 
 using Instagram credentials is so that the server can download media from your Instagram when you post data and a 
 WebHook notification is received.
 
-See https://www.oauthforaspnet.com/providers/instagram/ for information about how to register an application with Instagram 
+See http://www.oauthforaspnet.com/providers/instagram/ for information about how to register an application with Instagram 
 and how to authenticate it. 
 
 To test locally and in a deployed Web site, set the redirect URI for the Instagram app to these two entries:
@@ -38,4 +38,4 @@ To test locally and in a deployed Web site, set the redirect URI for the Instagr
 
 When deploying into Azure, also change the DefaultConnection connection string to a valid SQL Azure connection string.
 
-Please see http://www.instagram.com/developer/subscriptions for more information about Instagram WebHooks.
+Please see https://www.instagram.com/developer/subscriptions for more information about Instagram WebHooks.
