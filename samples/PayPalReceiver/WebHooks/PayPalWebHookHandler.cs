@@ -4,9 +4,9 @@ using Newtonsoft.Json.Linq;
 
 namespace PayPalReceiver.WebHooks
 {
-    public class GitHubWebHookHandler : WebHookHandler
+    public class PayPalWebHookHandler : WebHookHandler
     {
-        public GitHubWebHookHandler()
+        public PayPalWebHookHandler()
         {
             this.Receiver = PaypalWebHookReceiver.ReceiverName;
         }

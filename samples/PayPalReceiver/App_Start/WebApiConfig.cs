@@ -17,7 +17,7 @@ namespace PayPalReceiver
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            // Initialize GitHub WebHook receiver
+            // Initialize PayPal WebHook receiver
             config.InitializeReceivePaypalWebHooks();
         }
     }
