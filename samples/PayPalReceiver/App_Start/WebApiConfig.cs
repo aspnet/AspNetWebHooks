@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Net;
+using System.Web.Http;
 
 namespace PayPalReceiver
 {
@@ -7,6 +8,7 @@ namespace PayPalReceiver
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             // Web API routes
             config.MapHttpAttributeRoutes();
