@@ -189,6 +189,29 @@ namespace Microsoft.AspNet.WebHooks.Services
         }
 
         /// <summary>
+        /// Gets a default <see cref="IWebHookManager"/> implementation which is used if none are registered with the 
+        /// Dependency Injection engine.
+        /// </summary>
+        /// <returns>A default <see cref="IWebHookManager"/> instance.</returns>
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Disposed by AppDomain")]
+        public static IWebHookManager GetManager(ILogger logger)
+        {
+            if (_manager != null)
+            {
+                return _manager;
+            }
+           
+            if (logger == null)
+            {
+                throw new ArgumentNullException(nameof(logger));
+            }
+
+            IWebHookManager instance = new WebHookManager(GetStore(), GetSender(logger), logger);
+            Interlocked.CompareExchange(ref _manager, instance, null);
+            return _manager;
+        }
+
+        /// <summary>
         /// Gets a default <see cref="IWebHookRegistrationsManager"/> implementation which is used if none are registered with the 
         /// Dependency Injection engine.
         /// </summary>
