@@ -1,6 +1,8 @@
 # Microsoft ASP.NET WebHooks
 ## Note: This repo is solely for the ASP.NET WebHooks projects (libraries to create and consume WebHooks on ASP.NET 4.x and .NET Framework 4.5). For ASP.NET Core WebHooks (targeting .NET Standard 2.0), see the [aspnet/WebHooks](https://github.com/aspnet/WebHooks) repo.
 
+**Due to other priorities this project is currently in maintenance mode only. There are no planned releases at this time. No new features are planned and we are only addressing critical issues as required.**
+
 AppVeyor: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/aspnet/aspnetwebhooks?branch=dev&svg=true)](https://ci.appveyor.com/project/aspnetci/aspnetwebhooks/branch/dev)
 
 ASP.NET Web Hooks provide support for sending and receiving WebHooks. 
