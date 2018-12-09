@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Common\Extensions.cs" />
     <Compile Include="Handlers\VstsWebHookHandlerBaseTests.cs" />
+    <Compile Include="Payloads\ReleaseAbandonedPayloadTests.cs" />
     <Compile Include="Payloads\ReleaseCreatedPayloadTests.cs" />
     <Compile Include="Payloads\BuildCompletedPayloadTests.cs" />
     <Compile Include="Payloads\CodeCheckedInPayloadTests.cs" />
@@ -94,6 +95,7 @@
     <EmbeddedResource Include="Messages\git.pullrequest.updated.json" />
     <EmbeddedResource Include="Messages\git.pullrequest.merged.json" />
     <EmbeddedResource Include="Messages\release.created.json" />
+    <EmbeddedResource Include="Messages\release.abandoned.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -9,30 +9,30 @@ using Xunit;
 
 namespace Microsoft.AspNet.WebHooks
 {
-    public class ReleaseCreatedPayloadTests
+    public class ReleaseAbandonedPayloadTests
     {
         [Fact]
-        public void ReleaseCreatedPayload_Roundtrips()
+        public void ReleaseAbandonedPayload_Roundtrips()
         {
             // Arrange
-            JObject data = EmbeddedResource.ReadAsJObject("Microsoft.AspNet.WebHooks.Messages.release.created.json");
+            JObject data = EmbeddedResource.ReadAsJObject("Microsoft.AspNet.WebHooks.Messages.release.abandoned.json");
 
-            var expected = new ReleaseCreatedPayload
+            var expected = new ReleaseAbandonedPayload
             {
-                Id = "d4d69db4-18d4-413e-bc43-07f56b531160",
-                EventType = "ms.vss-release.release-created-event",
+                Id = "b0497ad3-50c9-4722-96da-a8fa5b80d77f",
+                EventType = "ms.vss-release.release-abandoned-event",
                 PublisherId = "rm",
                 Message = new PayloadMessage
                 {
-                    Text = "Release Release-1 created.",
-                    Html = "<a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> created.",
-                    Markdown = "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) created."
+                    Text = "Release Release-1 abandoned.",
+                    Html = "Release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> abandoned.",
+                    Markdown = "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) abandoned."
                 },
                 DetailedMessage = new PayloadMessage
                 {
-                    Text = "Release Release-1 created from release pipeline Fabrikam.CD.\\r\\nRelease description: QFE release for fixing title\\r\\nContinuousIntegration Requested for Chuck Reinhart\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>",
-                    Html = "Release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> created from release pipeline <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1'>Fabrikam.CD</a>.\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegration Requested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>",
-                    Markdown = "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) created from release pipeline [Fabrikam.CD](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1).\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegrationRequested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>"
+                    Text = "Release Release-1 from release pipeline Fabrikam.CD abandoned.\\r\\nRelease description: QFE release for fixing title\\r\\nContinuousIntegration Requested for Chuck Reinhart\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>",
+                    Html = "Release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> from <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1'>Fabrikam.CD</a> release pipeline abandoned.\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegration Requested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more <\\li>",
+                    Markdown = "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) from release pipeline [Fabrikam.CD](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1) abandoned.\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegration Requested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>"
                 },
 
                 Resource = new ReleaseResource
@@ -41,7 +41,7 @@ namespace Microsoft.AspNet.WebHooks
                     {
                         Id = 4,
                         Name = "Release-1",
-                        Status = "active",
+                        Status = "abandoned",
                         CreatedOn = "2016-01-21T08:19:17.26Z".ToDateTime(),
                         ModifiedOn = "2016-01-21T08:19:17.26Z".ToDateTime(),
                         ModifiedBy = new ResourceUser
@@ -87,7 +87,7 @@ namespace Microsoft.AspNet.WebHooks
                         Id = "f844ec47-a9db-4511-8281-8b63f4eaf94e"
                     }
                 },
-                CreatedDate = "2016-09-19T13:03:27.6570261Z".ToDateTime()
+                CreatedDate = "2016-09-19T13:03:27.784654Z".ToDateTime()
             };
 
             var environment = new ReleaseEnvironments
@@ -173,7 +173,7 @@ namespace Microsoft.AspNet.WebHooks
             });
 
             // Act
-            var actual = data.ToObject<ReleaseCreatedPayload>();
+            var actual = data.ToObject<ReleaseAbandonedPayload>();
 
             // Assert
             string expectedJson = JsonConvert.SerializeObject(expected);

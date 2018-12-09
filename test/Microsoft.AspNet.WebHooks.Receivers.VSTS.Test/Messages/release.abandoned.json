@@ -1,0 +1,145 @@
+﻿{
+  "id": "b0497ad3-50c9-4722-96da-a8fa5b80d77f",
+  "eventType": "ms.vss-release.release-abandoned-event",
+  "publisherId": "rm",
+  "scope": "all",
+  "message": {
+    "text": "Release Release-1 abandoned.",
+    "html": "Release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> abandoned.",
+    "markdown": "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) abandoned."
+  },
+  "detailedMessage": {
+    "text": "Release Release-1 from release pipeline Fabrikam.CD abandoned.\\r\\nRelease description: QFE release for fixing title\\r\\nContinuousIntegration Requested for Chuck Reinhart\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>",
+    "html": "Release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> from <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1'>Fabrikam.CD</a> release pipeline abandoned.\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegration Requested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more <\\li>",
+    "markdown": "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) from release pipeline [Fabrikam.CD](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1) abandoned.\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegration Requested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>"
+  },
+  "resource": {
+    "release": {
+      "id": 4,
+      "name": "Release-1",
+      "status": "abandoned",
+      "createdOn": "2016-01-21T08:19:17.26Z",
+      "modifiedOn": "2016-01-21T08:19:17.26Z",
+      "modifiedBy": {
+        "id": "4247c988-4060-4712-abca-ff44681dd78a",
+        "displayName": "Chuck Reinhart"
+      },
+      "createdBy": {
+        "id": "4247c988-4060-4712-abca-ff44681dd78a",
+        "displayName": "Chuck Reinhart"
+      },
+      "environments": [
+        {
+          "id": 5,
+          "releaseId": 0,
+          "name": "Dev",
+          "status": "succeeded",
+          "variables": {},
+          "preDeployApprovals": [],
+          "postDeployApprovals": [],
+          "preApprovalsSnapshot": {
+            "approvals": [],
+            "approvalOptions": {
+              "requiredApproverCount": 0,
+              "releaseCreatorCanBeApprover": true
+            }
+          },
+          "postApprovalsSnapshot": {
+            "approvals": []
+          },
+          "deploySteps": [],
+          "rank": 1,
+          "definitionEnvironmentId": 1,
+          "queueId": 1,
+          "environmentOptions": {
+            "emailNotificationType": "OnlyOnFailure",
+            "emailRecipients": "release.environment.owner;release.creator",
+            "skipArtifactsDownload": false,
+            "timeoutInMinutes": 0,
+            "enableAccessToken": false
+          },
+          "demands": [],
+          "conditions": [],
+          "modifiedOn": "2016-01-21T08:19:17.26Z",
+          "workflowTasks": [
+            {
+              "taskId": "00000000-0000-0000-0000-000000000000",
+              "version": "*",
+              "name": "Deploy Website to Azure",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "definitionType": null,
+              "inputs": {
+                "ConnectedServiceName": "b460b0f8-fe23-4dc2-a99c-fd8b0633fe1c",
+                "WebSiteName": "$(webAppName)",
+                "WebSiteLocation": "Southeast Asia",
+                "Slot": "",
+                "Package": "$(System.DefaultWorkingDirectory)\\**\\*.zip"
+              }
+            }
+          ],
+          "deployPhasesSnapshot": [],
+          "owner": {
+            "id": "4247c988-4060-4712-abca-ff44681dd78a",
+            "displayName": "Chuck Reinhart"
+          },
+          "scheduledDeploymentTime": "2016-01-21T08:19:17.26Z",
+          "schedules": [],
+          "release": {
+            "id": 5,
+            "name": "Release-1",
+            "url": "http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5"
+          }
+        }
+      ],
+      "variables": {},
+      "artifacts": [
+        {
+          "sourceId": "31419848-1780-4137-b7e3-62092e986fd6:1",
+          "type": "Build",
+          "alias": "Fabrikam.CI",
+          "definitionReference": {
+            "Definition": {
+              "id": "1",
+              "name": "Fabrikam.CI"
+            },
+            "Project": {
+              "id": "31419848-1780-4137-b7e3-62092e986fd6",
+              "name": "Fabrikam"
+            }
+          },
+          "isPrimary": true
+        }
+      ],
+      "releaseDefinition": {
+        "id": 1,
+        "name": "Fabrikam.CD",
+        "url": "http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/definitions/1"
+      },
+      "description": "QFE release for fixing title",
+      "reason": "continuousIntegration",
+      "releaseNameFormat": "Release-$(rev:r)",
+      "keepForever": false,
+      "definitionSnapshotRevision": 0,
+      "comment": "",
+      "logsContainerUrl": null,
+      "_links": {}
+    },
+    "project": {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "name": "Fabrikam"
+    }
+  },
+  "resourceVersion": "3.0-preview.1",
+  "resourceContainers": {
+    "collection": {
+      "id": "c12d0eb8-e382-443b-9f9c-c52cba5014c2"
+    },
+    "account": {
+      "id": "f844ec47-a9db-4511-8281-8b63f4eaf94e"
+    }
+  },
+  "createdDate": "2016-09-19T13:03:27.784654Z"
+}

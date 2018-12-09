@@ -85,6 +85,19 @@ namespace Microsoft.AspNet.WebHooks.Handlers
         }
 
         [Fact]
+        public async Task ExecuteAsync_Dispatches_ReleaseAbandoned()
+        {
+            // Arrange
+            _context = GetContext("Microsoft.AspNet.WebHooks.Messages.release.abandoned.json", "ms.vss-release.release-abandoned-event");
+
+            // Act
+            await _handler.ExecuteAsync(VstsWebHookReceiver.ReceiverName, _context);
+
+            // Assert
+            _handlerMock.Verify(h => h.ExecuteAsync(_context, It.IsAny<ReleaseAbandonedPayload>()), Times.Once());
+        }
+
+        [Fact]
         public async Task ExecuteAsync_Dispatches_WorkItemCommentedOn()
         {
             // Arrange
