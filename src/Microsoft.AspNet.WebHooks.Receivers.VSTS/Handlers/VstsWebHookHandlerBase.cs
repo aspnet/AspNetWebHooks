@@ -51,6 +51,7 @@ namespace Microsoft.AspNet.WebHooks
                 case "git.pullrequest.created": return ExecuteAsync(context, data.ToObject<GitPullRequestCreatedPayload>());
                 case "git.pullrequest.updated": return ExecuteAsync(context, data.ToObject<GitPullRequestUpdatedPayload>());
                 case "git.pullrequest.merged": return ExecuteAsync(context, data.ToObject<GitPullRequestMergeCommitCreatedPayload>());
+                case "ms.vss-release.release-created-event": return ExecuteAsync(context, data.ToObject<ReleaseCreatedPayload> ());
                 default:
                     var message = string.Format(CultureInfo.CurrentCulture, VstsReceiverResources.Handler_NonMappedEventType, action);
                     context.RequestContext.Configuration.DependencyResolver.GetLogger().Warn(message);
@@ -184,6 +185,16 @@ namespace Microsoft.AspNet.WebHooks
         /// <param name="context">Provides context for the <see cref="IWebHookHandler"/> for further processing the incoming WebHook.</param>
         /// <param name="payload">JSON payload.</param>
         public virtual Task ExecuteAsync(WebHookHandlerContext context, JObject payload)
+        {
+            return Task.FromResult(true);
+        }
+
+        /// <summary>
+        /// Executes the incoming WebHook request for event '<c>ms.vss-release.release-created-event</c>'.
+        /// </summary>
+        /// <param name="context">Provides context for the <see cref="IWebHookHandler"/> for further processing the incoming WebHook.</param>
+        /// <param name="payload">Strong-typed WebHook payload.</param>
+        public virtual Task ExecuteAsync(WebHookHandlerContext context, ReleaseCreatedPayload payload)
         {
             return Task.FromResult(true);
         }

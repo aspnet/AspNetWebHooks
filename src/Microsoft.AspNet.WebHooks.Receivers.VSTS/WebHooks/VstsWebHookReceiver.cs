@@ -25,7 +25,7 @@ namespace Microsoft.AspNet.WebHooks
     public class VstsWebHookReceiver : WebHookReceiver
     {
         internal const string RecName = "vsts";
-        internal const string EventTypeTokenName = "eventType";        
+        internal const string EventTypeTokenName = "eventType";
 
         /// <summary>
         /// Gets the receiver name for this receiver.

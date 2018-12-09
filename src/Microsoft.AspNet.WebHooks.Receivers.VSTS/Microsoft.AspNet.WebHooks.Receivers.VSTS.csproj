@@ -47,6 +47,12 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Extensions\HttpConfigurationExtensions.cs" />
+    <Compile Include="Payloads\ReleaseArtifact.cs" />
+    <Compile Include="Payloads\ReleaseArtifactDefinitionReference.cs" />
+    <Compile Include="Payloads\ReleaseArtifactDefinitionReferenceInfo.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsRelease.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsEnvironmentOptions.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsPostApprovalsSnapshot.cs" />
     <Compile Include="Payloads\GitPullRequestMergeCommitCreatedPayload.cs" />
     <Compile Include="Payloads\GitPullRequestUpdatedPayload.cs" />
     <Compile Include="Payloads\GitPullLinks.cs" />
@@ -77,6 +83,19 @@
     <Compile Include="Payloads\PayloadMessage.cs" />
     <Compile Include="Payloads\PayloadResourceContainer.cs" />
     <Compile Include="Payloads\PayloadResourceContainers.cs" />
+    <Compile Include="Payloads\Project.cs" />
+    <Compile Include="Payloads\ReleaseEnvironments.cs" />
+    <Compile Include="Payloads\ReleaseCreatedPayload.cs" />
+    <Compile Include="Payloads\ReleaseLinks.cs" />
+    <Compile Include="Payloads\Release.cs" />
+    <Compile Include="Payloads\ReleaseCreatedResource.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsPreApprovalsSnapshot.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsPreApprovalsSnapshotApprovalOptions.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsVariables.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsWorkflowTask.cs" />
+    <Compile Include="Payloads\ReleaseEnvironmentsWorkflowTaskInputs.cs" />
+    <Compile Include="Payloads\ReleaseReleaseDefinition.cs" />
+    <Compile Include="Payloads\ReleaseVariables.cs" />
     <Compile Include="Payloads\TeamRoomMessagePostedResource.cs" />
     <Compile Include="Payloads\WorkItemCommentedOnResource.cs" />
     <Compile Include="Payloads\WorkItemCreatedResource.cs" />
