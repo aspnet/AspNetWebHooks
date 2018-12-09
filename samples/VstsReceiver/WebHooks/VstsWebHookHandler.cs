@@ -91,5 +91,14 @@ namespace VstsReceiver.WebHooks
         {
             return Task.FromResult(true);
         }
+
+        /// <summary>
+        /// We use <see cref="VstsWebHookHandlerBase"/> so just have to override the methods we want to process WebHooks for.
+        /// This one processes the <see cref="ReleaseCreatedPayload"/> WebHook.
+        /// </summary>
+        public override Task ExecuteAsync(WebHookHandlerContext context, ReleaseCreatedPayload payload)
+        {
+            return Task.FromResult(true);
+        }
     }
 }
