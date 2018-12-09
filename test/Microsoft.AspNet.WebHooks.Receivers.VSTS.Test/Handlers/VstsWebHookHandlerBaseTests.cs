@@ -72,6 +72,19 @@ namespace Microsoft.AspNet.WebHooks.Handlers
         }
 
         [Fact]
+        public async Task ExecuteAsync_Dispatches_ReleaseCreated()
+        {
+            // Arrange
+            _context = GetContext("Microsoft.AspNet.WebHooks.Messages.release.created.json", "ms.vss-release.release-created-event");
+
+            // Act
+            await _handler.ExecuteAsync(VstsWebHookReceiver.ReceiverName, _context);
+
+            // Assert
+            _handlerMock.Verify(h => h.ExecuteAsync(_context, It.IsAny<ReleaseCreatedPayload>()), Times.Once());
+        }
+
+        [Fact]
         public async Task ExecuteAsync_Dispatches_WorkItemCommentedOn()
         {
             // Arrange
