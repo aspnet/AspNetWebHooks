@@ -37,13 +37,13 @@ namespace Microsoft.AspNet.WebHooks.Payloads
         /// Gets the environment name.
         /// </summary>
         [JsonProperty("name")]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets the outcome status of the environment.
         /// </summary>
         [JsonProperty("status")]
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         /// Gets variables of the environment.

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using Newtonsoft.Json;
 
 namespace Microsoft.AspNet.WebHooks.Payloads
@@ -26,6 +27,6 @@ namespace Microsoft.AspNet.WebHooks.Payloads
         /// Gets the definition URL.
         /// </summary>
         [JsonProperty("url")]
-        public string Url { get; set; }
+        public Uri Url { get; set; }
     }
 }
