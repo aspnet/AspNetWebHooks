@@ -47,6 +47,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Extensions\HttpConfigurationExtensions.cs" />
+    <Compile Include="Payloads\ReleaseAbandonedPayload.cs" />
     <Compile Include="Payloads\ReleaseArtifact.cs" />
     <Compile Include="Payloads\ReleaseArtifactDefinitionReference.cs" />
     <Compile Include="Payloads\ReleaseArtifactDefinitionReferenceInfo.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Payloads\ReleaseCreatedPayload.cs" />
     <Compile Include="Payloads\ReleaseLinks.cs" />
     <Compile Include="Payloads\Release.cs" />
-    <Compile Include="Payloads\ReleaseCreatedResource.cs" />
+    <Compile Include="Payloads\ReleaseResource.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsPreApprovalsSnapshot.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsPreApprovalsSnapshotApprovalOptions.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsVariables.cs" />

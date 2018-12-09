@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 namespace Microsoft.AspNet.WebHooks.Payloads
 {
     /// <summary>
-    /// Describes the resource that associated with <see cref="ReleaseCreatedPayload"/>
+    /// Describes the resource that associated with <see cref="ReleaseCreatedPayload"/>, <see cref="ReleaseAbandonedPayload"/>
     /// </summary>
-    public class ReleaseCreatedResource : BaseResource
+    public class ReleaseResource : BaseResource
     {
         /// <summary>
         /// The Release.

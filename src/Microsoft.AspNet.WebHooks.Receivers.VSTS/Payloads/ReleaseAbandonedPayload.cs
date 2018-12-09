@@ -4,9 +4,9 @@
 namespace Microsoft.AspNet.WebHooks.Payloads
 {
     /// <summary>
-    /// Describes the entire payload of event '<c>ms.vss-release.release-created-event</c>'.
+    /// Describes the entire payload of event '<c>ms.vss-release.release-abandoned-event</c>'.
     /// </summary>
-    public class ReleaseCreatedPayload : BasePayload<ReleaseResource>
+    public class ReleaseAbandonedPayload : BasePayload<ReleaseResource>
     {
     }
 }
