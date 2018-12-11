@@ -98,6 +98,19 @@ namespace Microsoft.AspNet.WebHooks.Handlers
         }
 
         [Fact]
+        public async Task ExecuteAsync_Dispatches_ReleaseDeploymentApprovalCompleted()
+        {
+            // Arrange
+            _context = GetContext("Microsoft.AspNet.WebHooks.Messages.release.deployment.approval.completed.json", "ms.vss-release.deployment-approval-completed-event");
+
+            // Act
+            await _handler.ExecuteAsync(VstsWebHookReceiver.ReceiverName, _context);
+
+            // Assert
+            _handlerMock.Verify(h => h.ExecuteAsync(_context, It.IsAny<ReleaseDeploymentApprovalCompletedPayload>()), Times.Once());
+        }
+
+        [Fact]
         public async Task ExecuteAsync_Dispatches_WorkItemCommentedOn()
         {
             // Arrange

@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
     /// <summary>
     /// Describes release definition.
     /// </summary>
-    public class ReleaseReleaseDefinition
+    public class ReleaseDefinition
     {
         /// <summary>
         /// Gets the definition identifier.

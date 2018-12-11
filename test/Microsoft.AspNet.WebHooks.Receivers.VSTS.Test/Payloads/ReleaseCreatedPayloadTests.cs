@@ -55,7 +55,7 @@ namespace Microsoft.AspNet.WebHooks
                             DisplayName = "Chuck Reinhart"
                         },
                         Variables = new ReleaseVariables(),
-                        ReleaseDefinition = new ReleaseReleaseDefinition
+                        ReleaseDefinition = new ReleaseDefinition
                         {
                             Id = 1,
                             Name = "Fabrikam.CD",

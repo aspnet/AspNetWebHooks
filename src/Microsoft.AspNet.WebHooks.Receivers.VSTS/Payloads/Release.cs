@@ -85,7 +85,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
         /// Gets the definition of the release.
         /// </summary>
         [JsonProperty("releaseDefinition")]
-        public ReleaseReleaseDefinition ReleaseDefinition { get; set; }
+        public ReleaseDefinition ReleaseDefinition { get; set; }
 
         /// <summary>
         /// Gets the description of the release.

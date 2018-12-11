@@ -47,10 +47,13 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Extensions\HttpConfigurationExtensions.cs" />
+    <Compile Include="Payloads\Approval.cs" />
     <Compile Include="Payloads\ReleaseAbandonedPayload.cs" />
     <Compile Include="Payloads\ReleaseArtifact.cs" />
     <Compile Include="Payloads\ReleaseArtifactDefinitionReference.cs" />
     <Compile Include="Payloads\ReleaseArtifactDefinitionReferenceInfo.cs" />
+    <Compile Include="Payloads\ReleaseDeploymentApprovalCompletedPayload.cs" />
+    <Compile Include="Payloads\ReleaseDeploymentApprovalCompletedResource.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsRelease.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsEnvironmentOptions.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsPostApprovalsSnapshot.cs" />
@@ -95,7 +98,7 @@
     <Compile Include="Payloads\ReleaseEnvironmentsVariables.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsWorkflowTask.cs" />
     <Compile Include="Payloads\ReleaseEnvironmentsWorkflowTaskInputs.cs" />
-    <Compile Include="Payloads\ReleaseReleaseDefinition.cs" />
+    <Compile Include="Payloads\ReleaseDefinition.cs" />
     <Compile Include="Payloads\ReleaseVariables.cs" />
     <Compile Include="Payloads\TeamRoomMessagePostedResource.cs" />
     <Compile Include="Payloads\WorkItemCommentedOnResource.cs" />

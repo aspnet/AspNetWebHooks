@@ -9,39 +9,80 @@ using Xunit;
 
 namespace Microsoft.AspNet.WebHooks
 {
-    public class ReleaseAbandonedPayloadTests
+    public class ReleaseDeploymentApprovalCompletedPayloadTests
     {
         [Fact]
-        public void ReleaseAbandonedPayload_Roundtrips()
+        public void ReleaseDeploymentApprovalCompletedPayloadTests_Roundtrips()
         {
             // Arrange
-            JObject data = EmbeddedResource.ReadAsJObject("Microsoft.AspNet.WebHooks.Messages.release.abandoned.json");
+            JObject data = EmbeddedResource.ReadAsJObject("Microsoft.AspNet.WebHooks.Messages.release.deployment.approval.completed.json");
 
-            var expected = new ReleaseAbandonedPayload
+            var expected = new ReleaseDeploymentApprovalCompletedPayload
             {
-                Id = "b0497ad3-50c9-4722-96da-a8fa5b80d77f",
-                EventType = "ms.vss-release.release-abandoned-event",
+                Id = "106acb39-c61e-4efd-995e-a9f5e71ba3cd",
+                EventType = "ms.vss-release.deployment-approval-completed-event",
                 PublisherId = "rm",
                 Message = new PayloadMessage
                 {
-                    Text = "Release Release-1 abandoned.",
-                    Html = "Release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> abandoned.",
-                    Markdown = "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) abandoned."
+                    Text = "Pre Deployment approval for deployment of release Release-1 on environment Dev Succeeded.",
+                    Html = "Pre Deployment approval for release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/1'>Release-1</a> on environment <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/definitions/1'>Dev</a> Succeeded.",
+                    Markdown = "Pre Deployment approval for deployment of release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/1) on environment [Dev](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/definitions/1) Succeeded."
                 },
                 DetailedMessage = new PayloadMessage
                 {
-                    Text = "Release Release-1 from release pipeline Fabrikam.CD abandoned.\\r\\nRelease description: QFE release for fixing title\\r\\nContinuousIntegration Requested for Chuck Reinhart\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>",
-                    Html = "Release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5'>Release-1</a> from <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1'>Fabrikam.CD</a> release pipeline abandoned.\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegration Requested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more <\\li>",
-                    Markdown = "Release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5) from release pipeline [Fabrikam.CD](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releasedefinitions/1) abandoned.\\r\\n<li>Release description: QFE release for fixing title</li>\\r\\n<li>ContinuousIntegration Requested for Chuck Reinhart</li>\\r\\n<li>Build: fabrikam.Bd.2016.04.10 & 2 more<\\li>"
+                    Text = "Pre Deployment approval for release Release-1 on environment Dev Succeeded.\\r\\nApprover: Chuck Reinhart\\r\\nComment: Approving",
+                    Html = "Pre Deployment approval for release <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/1'>Release-1</a> on environment <a href='http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/definitions/1'>Dev</a>  Succeeded.\\r\\nApprover: Chuck Reinhart\\r\\nComment: Approving",
+                    Markdown = "Pre Deployment approval for release [Release-1](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/1) on environment [Dev](http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/definitions/1) Succeeded.\\r\\nApprover: Chuck Reinhart\\r\\nComment: Approving"
                 },
-
-                Resource = new ReleaseResource
+                
+                Resource = new ReleaseDeploymentApprovalCompletedResource
                 {
+                    Approval = new Approval
+                    {
+                        Id = 0,
+                        Revision = 0,
+                        Approver = new ResourceUser
+                        {
+                            Id = "4247c988-4060-4712-abca-ff44681dd78a",
+                            DisplayName = "Chuck Reinhart"
+                        },
+                        ApprovedBy = new ResourceUser
+                        {
+                            Id = "4247c988-4060-4712-abca-ff44681dd78a",
+                            DisplayName = "Chuck Reinhart"
+                        },
+                        ApprovalType = "preDeploy",
+                        CreatedOn = "2016-01-21T08:19:17.26Z".ToDateTime(),
+                        ModifiedOn = "2016-01-21T08:19:17.26Z".ToDateTime(),
+                        Status = "approved",
+                        Comments = "",
+                        IsAutomated = false,
+                        IsNotificationOn = true,
+                        TrialNumber = 1,
+                        Attempt = 0,
+                        Rank = 1,
+                        Release = new Release
+                        {
+                            Id = 1,
+                            Name = "Release-1"
+                        },
+                        ReleaseDefinition = new ReleaseDefinition
+                        {
+                            Id = 1,
+                            Name = "Fabrikam.CD",
+                            Url = new Uri("http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/definitions/1")
+                        },
+                        ReleaseEnvironment = new ReleaseEnvironments
+                        {
+                            Id = 8,
+                            Name = "Dev"
+                        }
+                    },
                     Release = new Release
                     {
-                        Id = 4,
+                        Id = 1,
                         Name = "Release-1",
-                        Status = "abandoned",
+                        Status = "active",
                         CreatedOn = "2016-01-21T08:19:17.26Z".ToDateTime(),
                         ModifiedOn = "2016-01-21T08:19:17.26Z".ToDateTime(),
                         ModifiedBy = new ResourceUser
@@ -87,12 +128,12 @@ namespace Microsoft.AspNet.WebHooks
                         Id = "f844ec47-a9db-4511-8281-8b63f4eaf94e"
                     }
                 },
-                CreatedDate = "2016-09-19T13:03:27.784654Z".ToDateTime()
+                CreatedDate = "2016-09-19T13:03:28.1594606Z".ToDateTime()
             };
 
             var environment = new ReleaseEnvironments
             {
-                Id = 5,
+                Id = 1,
                 ReleaseId = 0,
                 Name = "Dev",
                 Status = "succeeded",
@@ -126,9 +167,9 @@ namespace Microsoft.AspNet.WebHooks
                 ScheduledDeploymentTime = "2016-01-21T08:19:17.26Z".ToDateTime(),
                 Release = new ReleaseEnvironmentsRelease
                 {
-                    Id = 5,
+                    Id = 1,
                     Name = "Release-1",
-                    Url = new Uri("http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/5")
+                    Url = new Uri("http://vsrm.dev.azure.com/fabfiber/DefaultCollection/Fabrikam-Fiber-Git/_apis/Release/releases/1")
                 }
             };
             environment.WorkflowTasks.Add(new ReleaseEnvironmentsWorkflowTask
@@ -173,7 +214,7 @@ namespace Microsoft.AspNet.WebHooks
             });
 
             // Act
-            var actual = data.ToObject<ReleaseAbandonedPayload>();
+            var actual = data.ToObject<ReleaseDeploymentApprovalCompletedPayload>();
 
             // Assert
             string expectedJson = JsonConvert.SerializeObject(expected);
