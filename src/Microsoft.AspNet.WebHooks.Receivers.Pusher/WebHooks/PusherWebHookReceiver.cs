@@ -28,15 +28,8 @@ namespace Microsoft.AspNet.WebHooks
     /// </summary>
     public class PusherWebHookReceiver : WebHookReceiver
     {
-        internal const string RecName = "pusher";
         internal const int SecretMinLength = 8;
         internal const int SecretMaxLength = 128;
-
-        internal const string SignatureHeaderName = "X-Pusher-Signature";
-        internal const string KeyHeaderName = "X-Pusher-Key";
-
-        internal const string EventsKey = "events";
-        internal const string EventNameKey = "name";
 
         private ConcurrentDictionary<string, IDictionary<string, string>> _secretLookupTable = new ConcurrentDictionary<string, IDictionary<string, string>>();
 
@@ -45,13 +38,13 @@ namespace Microsoft.AspNet.WebHooks
         /// </summary>
         public static string ReceiverName
         {
-            get { return RecName; }
+            get { return PusherConstants.ReceiverName; }
         }
 
         /// <inheritdoc />
         public override string Name
         {
-            get { return RecName; }
+            get { return PusherConstants.ReceiverName; }
         }
 
         /// <inheritdoc />
@@ -75,7 +68,7 @@ namespace Microsoft.AspNet.WebHooks
                 var valid = await VerifySignature(id, request);
                 if (!valid)
                 {
-                    return CreateBadSignatureResponse(request, SignatureHeaderName);
+                    return CreateBadSignatureResponse(request, PusherConstants.SignatureHeaderName);
                 }
 
                 // Read the request entity body
@@ -99,14 +92,14 @@ namespace Microsoft.AspNet.WebHooks
         protected virtual async Task<bool> VerifySignature(string id, HttpRequestMessage request)
         {
             // Get the expected hash from the signature and app key headers
-            var signatureHeaderValue = GetRequestHeader(request, SignatureHeaderName);
-            var keyHeaderValue = GetRequestHeader(request, KeyHeaderName);
+            var signatureHeaderValue = GetRequestHeader(request, PusherConstants.SignatureHeaderName);
+            var keyHeaderValue = GetRequestHeader(request, PusherConstants.SignatureKeyHeaderName);
 
             // Lookup which secret to use based on key header value
             var lookupTable = await GetSecretLookupTable(id, request);
             if (!lookupTable.TryGetValue(keyHeaderValue, out var secretKey))
             {
-                var message = string.Format(CultureInfo.CurrentCulture, PusherReceiverResources.Receiver_SecretNotFound, KeyHeaderName, keyHeaderValue);
+                var message = string.Format(CultureInfo.CurrentCulture, PusherReceiverResources.Receiver_SecretNotFound, PusherConstants.SignatureKeyHeaderName, keyHeaderValue);
                 request.GetConfiguration().DependencyResolver.GetLogger().Error(message);
                 var invalidEncoding = request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
                 throw new HttpResponseException(invalidEncoding);
@@ -119,7 +112,7 @@ namespace Microsoft.AspNet.WebHooks
             }
             catch (Exception ex)
             {
-                var message = string.Format(CultureInfo.CurrentCulture, PusherReceiverResources.Receiver_BadHeaderEncoding, SignatureHeaderName);
+                var message = string.Format(CultureInfo.CurrentCulture, PusherReceiverResources.Receiver_BadHeaderEncoding, PusherConstants.SignatureHeaderName);
                 request.GetConfiguration().DependencyResolver.GetLogger().Error(message, ex);
                 var invalidEncoding = request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
                 throw new HttpResponseException(invalidEncoding);
@@ -204,12 +197,12 @@ namespace Microsoft.AspNet.WebHooks
             try
             {
                 var actions = new List<string>();
-                var events = data.Value<JArray>(EventsKey);
+                var events = data.Value<JArray>(PusherConstants.EventRequestPropertyContainerName);
                 if (events != null)
                 {
                     foreach (JObject e in events)
                     {
-                        var action = e.Value<string>(EventNameKey);
+                        var action = e.Value<string>(PusherConstants.EventNamePropertyName);
                         if (action != null)
                         {
                             actions.Add(action);
