@@ -12,7 +12,7 @@ namespace Microsoft.AspNet.WebHooks
     /// Provides a base <see cref="IWebHookHandler" /> implementation which can be used to for handling Pusher WebHook using strongly-typed
     /// payloads. For details about Pusher WebHooks, see <c>https://pusher.com/docs/webhooks</c>.
     /// </summary>
-    class PusherWebHookHandlerBase : WebHookHandler
+    public class PusherWebHookHandlerBase : WebHookHandler
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PusherWebHookHandlerBase"/> class.

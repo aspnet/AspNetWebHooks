@@ -1,55 +1,42 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.AspNet.WebHooks;
+using Microsoft.AspNet.WebHooks.Payloads;
+using Newtonsoft.Json.Linq;
 
 namespace PusherReceiver.WebHooks
 {
-    public class PusherWebHookHandler : WebHookHandler
+    public class PusherWebHookHandler : PusherWebHookHandlerBase
     {
-        public PusherWebHookHandler()
+        public override void ChannelOccupied(WebHookHandlerContext context, ChannelOccupiedPayload payload)
         {
-            this.Receiver = PusherWebHookReceiver.ReceiverName;
+            context.RequestContext.Configuration.DependencyResolver.GetLogger().Info($"Channel {payload.Channel} is occupied");
         }
 
-        public override Task ExecuteAsync(string generator, WebHookHandlerContext context)
+        public override void ChannelVacated(WebHookHandlerContext context, ChannelVacatedPayload payload)
         {
-            var data = context.GetDataOrDefault<PusherNotifications>();
-
-            var createdAtUnix = data.CreatedAt;
-            var createdAt = UnixTimeStampToDateTime(createdAtUnix);
-
-            var index = 0;
-            foreach (var @event in data.Events)
-            {
-                if (@event.TryGetValue(PusherConstants.EventNamePropertyName, out var eventName))
-                {
-                    if (@event.TryGetValue(PusherConstants.ChannelNamePropertyName, out var channelName))
-                    {
-                        if (@event.TryGetValue(PusherConstants.UserIdPropertyName, out var userId))
-                        {
-                            Debug.WriteLine($"Event {index} has {@event.Count} properties, including name '{eventName}' and channel '{channelName}' for user '{userId}'.");
-                        }
-                        else
-                        {
-                            Debug.WriteLine($"Event {index} has {@event.Count} properties, including name '{eventName}' and channel '{channelName}'.");
-                        }
-                    }
-                    else
-                    {
-                        Debug.WriteLine($"Event {index} has {@event.Count} properties, including name '{eventName}'.");
-                    }
-                }
-                else
-                {
-                    Debug.WriteLine($"Event {index} has {@event.Count} properties but does not contain a {PusherConstants.EventNamePropertyName} property.");
-                }
-
-                index++;
-            }
-
-            return Task.FromResult(true);
+            context.RequestContext.Configuration.DependencyResolver.GetLogger().Info($"Channel {payload.Channel} is vacated");
         }
+
+        public override void MemberAdded(WebHookHandlerContext context, MemberAddedPayload payload)
+        {
+            context.RequestContext.Configuration.DependencyResolver.GetLogger().Info($"Member {payload.UserId} added to channel {payload.Channel}");
+        }
+
+        public override void MemberRemoved(WebHookHandlerContext context, MemberRemovedPayload payload)
+        {
+            context.RequestContext.Configuration.DependencyResolver.GetLogger().Info($"Member {payload.UserId} removed from channel {payload.Channel}");
+        }
+
+        public override void ClientEvent(WebHookHandlerContext context, ClientEventPayload payload)
+        {
+            context.RequestContext.Configuration.DependencyResolver.GetLogger().Info($"Client event");
+        }
+
+        public override void UnknownEvent(WebHookHandlerContext context, JObject payload)
+        {
+            context.RequestContext.Configuration.DependencyResolver.GetLogger().Info($"Unknown event");
+        }
+
 
         public static DateTime UnixTimeStampToDateTime(double millisecondsTimeStamp)
         {

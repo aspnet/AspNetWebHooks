@@ -228,8 +228,8 @@ namespace Microsoft.AspNet.WebHooks
         {
             // Arrange
             Initialize(TestSecret);
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, "value1");
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, "value2");
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, "value1");
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, "value2");
 
             // Act
             HttpResponseException ex = await Assert.ThrowsAsync<HttpResponseException>(() => ReceiverMock.Object.ReceiveAsync(TestId, RequestContext, _postRequest));
@@ -246,7 +246,7 @@ namespace Microsoft.AspNet.WebHooks
         {
             // Arrange
             Initialize(TestSecret);
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, "你好世界");
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, "你好世界");
 
             // Act
             HttpResponseException ex = await Assert.ThrowsAsync<HttpResponseException>(() => ReceiverMock.Object.ReceiveAsync(TestId, RequestContext, _postRequest));
@@ -264,7 +264,7 @@ namespace Microsoft.AspNet.WebHooks
             // Arrange
             Initialize(TestSecret);
             string invalid = EncodingUtilities.ToHex(Encoding.UTF8.GetBytes("你好世界"));
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, invalid);
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, invalid);
 
             // Act
             HttpResponseMessage actual = await ReceiverMock.Object.ReceiveAsync(TestId, RequestContext, _postRequest);
@@ -281,7 +281,7 @@ namespace Microsoft.AspNet.WebHooks
         {
             // Arrange
             Initialize(TestSecret);
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, _testSignature);
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, _testSignature);
             _postRequest.Content = new StringContent(TestContent, Encoding.UTF8, "text/plain");
 
             // Act
@@ -299,8 +299,8 @@ namespace Microsoft.AspNet.WebHooks
         {
             // Arrange
             Initialize(TestSecret);
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, _testSignature);
-            _postRequest.Headers.Remove(PusherWebHookReceiver.KeyHeaderName);
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, _testSignature);
+            _postRequest.Headers.Remove(PusherConstants.SignatureKeyHeaderName);
 
             // Act
             HttpResponseException ex = await Assert.ThrowsAsync<HttpResponseException>(() => ReceiverMock.Object.ReceiveAsync(TestId, RequestContext, _postRequest));
@@ -317,9 +317,9 @@ namespace Microsoft.AspNet.WebHooks
         {
             // Arrange
             Initialize(TestSecret);
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, _testSignature);
-            _postRequest.Headers.Remove(PusherWebHookReceiver.KeyHeaderName);
-            _postRequest.Headers.Add(PusherWebHookReceiver.KeyHeaderName, "invalid");
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, _testSignature);
+            _postRequest.Headers.Remove(PusherConstants.SignatureKeyHeaderName);
+            _postRequest.Headers.Add(PusherConstants.SignatureKeyHeaderName, "invalid");
 
             // Act
             HttpResponseException ex = await Assert.ThrowsAsync<HttpResponseException>(() => ReceiverMock.Object.ReceiveAsync(TestId, RequestContext, _postRequest));
@@ -338,7 +338,7 @@ namespace Microsoft.AspNet.WebHooks
             // Arrange
             Initialize(GetConfigValue(id, TestSecret));
             List<string> actions = new List<string> { "event_name" };
-            _postRequest.Headers.Add(PusherWebHookReceiver.SignatureHeaderName, _testSignature);
+            _postRequest.Headers.Add(PusherConstants.SignatureHeaderName, _testSignature);
             ReceiverMock.Protected()
                 .Setup<Task<HttpResponseMessage>>("ExecuteWebHookAsync", id, RequestContext, _postRequest, actions, ItExpr.IsAny<object>())
                 .ReturnsAsync(new HttpResponseMessage())
@@ -379,7 +379,7 @@ namespace Microsoft.AspNet.WebHooks
 
             _postRequest = new HttpRequestMessage(HttpMethod.Post, "https://some.ssl.host");
             _postRequest.SetRequestContext(RequestContext);
-            _postRequest.Headers.Add(PusherWebHookReceiver.KeyHeaderName, TestKey);
+            _postRequest.Headers.Add(PusherConstants.SignatureKeyHeaderName, TestKey);
             _postRequest.Content = new StringContent(TestContent, Encoding.UTF8, "application/json");
         }
 
