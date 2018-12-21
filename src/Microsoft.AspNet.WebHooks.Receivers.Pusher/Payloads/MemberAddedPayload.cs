@@ -6,7 +6,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
     /// Payload sent when a new user subscribes to a presence channel
     /// See <c>https://pusher.com/docs/webhooks</c> for details.
     /// </summary>
-    public class MemberAddedPayload
+    public class MemberAddedPayload : BasePayload
     {
         /// <summary>
         /// Channel name

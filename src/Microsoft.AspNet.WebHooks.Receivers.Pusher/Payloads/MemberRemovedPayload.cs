@@ -6,7 +6,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
     /// Payload sent when a user unsubscribes from a presence channel
     /// See <c>https://pusher.com/docs/webhooks</c> for details.
     /// </summary>
-    public class MemberRemovedPayload
+    public class MemberRemovedPayload : BasePayload
     {
         /// <summary>
         /// Channel name

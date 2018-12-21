@@ -61,21 +61,41 @@ namespace Microsoft.AspNet.WebHooks
             }
 
             //iterate over events, needed for batch events support, see https://blog.pusher.com/batch-webhooks/
-            foreach (var @event in events)
+            foreach (JObject @event in events)
             {
                 var eventName = @event.Value<string>(PusherConstants.EventNamePropertyName);
 
                 switch (eventName)
                 {
-                    case "channel_occupied": ChannelOccupied(context, @event.ToObject<ChannelOccupiedPayload>()); break;
-                    case "channel_vacated": ChannelVacated(context, @event.ToObject<ChannelVacatedPayload>()); break;
-                    case "member_added": MemberAdded(context, @event.ToObject<MemberAddedPayload>()); break;
-                    case "member_removed": MemberRemoved(context, @event.ToObject<MemberRemovedPayload>()); break;
-                    case "client_event": ClientEvent(context, @event.ToObject<ClientEventPayload>()); break;
+                    case "channel_occupied":
+                        var channelOccupiedPayload = @event.ToObject<ChannelOccupiedPayload>();
+                        channelOccupiedPayload.CreatedAt = createdAt.Value;
+                        ChannelOccupied(context, channelOccupiedPayload);
+                        break;
+                    case "channel_vacated":
+                        var channelVacatedPayload = @event.ToObject<ChannelVacatedPayload>();
+                        channelVacatedPayload.CreatedAt = createdAt.Value;
+                        ChannelVacated(context, channelVacatedPayload);
+                        break;
+                    case "member_added":
+                        var memberAddedPayload = @event.ToObject<MemberAddedPayload>();
+                        memberAddedPayload.CreatedAt = createdAt.Value;
+                        MemberAdded(context, memberAddedPayload);
+                        break;
+                    case "member_removed":
+                        var memberRemovedPayload = @event.ToObject<MemberRemovedPayload>();
+                        memberRemovedPayload.CreatedAt = createdAt.Value;
+                        MemberRemoved(context, memberRemovedPayload);
+                        break;
+                    case "client_event":
+                        var clientEventPayload = @event.ToObject<ClientEventPayload>();
+                        clientEventPayload.CreatedAt = createdAt.Value;
+                        ClientEvent(context, clientEventPayload);
+                        break;
                     default:
                         var message = string.Format(CultureInfo.CurrentCulture, "The property 'name' contains unmapped value '{0}'.", eventName);
                         context.RequestContext.Configuration.DependencyResolver.GetLogger().Warn(message);
-                        UnknownEvent(context, data);
+                        UnknownEvent(context, @event);
                         break;
                 }
             }

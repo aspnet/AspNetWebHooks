@@ -6,7 +6,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
     /// Payload sent when a channel becomes vacated
     /// See <c>https://pusher.com/docs/webhooks</c> for details.
     /// </summary>
-    public class ChannelVacatedPayload
+    public class ChannelVacatedPayload : BasePayload
     {
         /// <summary>
         /// Channel name

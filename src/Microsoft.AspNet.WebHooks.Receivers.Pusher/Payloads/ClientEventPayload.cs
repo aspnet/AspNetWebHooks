@@ -7,7 +7,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
     /// Payload sent when a client event is sent on any private or presence channel
     /// See <c>https://pusher.com/docs/webhooks</c> for details.
     /// </summary>
-    public class ClientEventPayload
+    public class ClientEventPayload : BasePayload
     {
         /// <summary>
         /// Name of the channel the event was published on

@@ -6,7 +6,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
     /// Payload sent when a channel becomes occupied
     /// See <c>https://pusher.com/docs/webhooks</c> for details.
     /// </summary>
-    public class ChannelOccupiedPayload
+    public class ChannelOccupiedPayload : BasePayload
     {
         /// <summary>
         /// Channel name
