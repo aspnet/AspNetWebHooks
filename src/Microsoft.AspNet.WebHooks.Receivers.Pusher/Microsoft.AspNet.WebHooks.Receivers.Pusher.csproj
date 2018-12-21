@@ -58,6 +58,12 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Extensions\HttpConfigurationExtensions.cs" />
+    <Compile Include="Handlers\PusherWebHookHandlerBase.cs" />
+    <Compile Include="Payloads\ChannelOccupiedPayload.cs" />
+    <Compile Include="Payloads\ChannelVacatedPayload.cs" />
+    <Compile Include="Payloads\ClientEventPayload.cs" />
+    <Compile Include="Payloads\MemberAddedPayload.cs" />
+    <Compile Include="Payloads\MemberRemovedPayload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\PusherReceiverResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -91,6 +97,7 @@
   <ItemGroup>
     <None Include="Microsoft.AspNet.WebHooks.Receivers.Pusher.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

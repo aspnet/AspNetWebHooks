@@ -36,7 +36,7 @@
         public static string EventNamePropertyName => "name";
 
         /// <summary>
-        /// ets the name of the JSON property in a Pusher event object containing the user id.
+        /// Gets the name of the JSON property in a Pusher event object containing the user id.
         /// </summary>
         public static string UserIdPropertyName => "user_id";
 
