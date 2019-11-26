@@ -28,7 +28,9 @@ set InstallDir=
 for /f "usebackq tokens=*" %%i in (`%vswhere% -latest -prerelease -products * -requires Microsoft.Component.MSBuild -property installationPath`) do (
   set InstallDir=%%i
 )
-if exist "%InstallDir%\MSBuild\15.0\Bin\MSBuild.exe" (
+if exist "%InstallDir%\MSBuild\Current\Bin\MSBuild.exe" (
+   set MSBuild="%InstallDir%\MSBuild\Current\Bin\MSBuild.exe"
+) else if exist "%InstallDir%\MSBuild\15.0\Bin\MSBuild.exe" (
   set MSBuild="%InstallDir%\MSBuild\15.0\Bin\MSBuild.exe"
 ) else (
   echo Could not find MSBuild.exe. Please install the VS2017 BuildTools component or a workload that includes it.
