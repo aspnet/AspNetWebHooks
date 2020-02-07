@@ -168,7 +168,7 @@ namespace Microsoft.AspNet.WebHooks
                 return;
             }
 
-            // Require HTTP unless request is local
+            // Require HTTPS unless request is local
             if (!request.IsLocal() && !request.RequestUri.IsHttps())
             {
                 var message = string.Format(CultureInfo.CurrentCulture, ReceiverResources.Receiver_NoHttps, GetType().Name, Uri.UriSchemeHttps);
