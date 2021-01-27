@@ -1,0 +1,9 @@
+{
+  "tool": "Credential Scanner",
+  "suppressions": [
+    {
+      "placeholder": "1vsBmi8vJKP+tm3iG+K6cSdi7v6AFdx8vqGSDQyozw4=",
+      "_justification": "This is a fake password hash used in test code."
+    }
+  ]
+}
