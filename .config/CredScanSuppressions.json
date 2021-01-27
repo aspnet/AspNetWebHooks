@@ -2,7 +2,7 @@
   "tool": "Credential Scanner",
   "suppressions": [
     {
-      "placeholder": "1vsBmi8vJKP+tm3iG+K6cSdi7v6AFdx8vqGSDQyozw4=",
+      "placeholder": "a0913d87aba24e689266ad8ecbd3832e",
       "_justification": "This is a fake password hash used in test code."
     }
   ]
