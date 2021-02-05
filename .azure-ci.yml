@@ -13,6 +13,7 @@ resources:
     type: github
     endpoint: aspnet
     name: aspnet/AspnetWebHooks-Signed
+    ref: wtgodbe/SignTool
 
 variables:
 - ${{ if eq(variables['System.TeamProject'], 'public') }}:
@@ -123,6 +124,20 @@ jobs:
               $(BuildScriptArgs)
               /bl:artifacts/logs/Build-Sign.binlog
       displayName: Build & Sign
+    - task: NuGetCommand@2
+      inputs:
+        command: 'push'
+        feedsToUse: 'select'
+        vstsFeed: 'public/general-testing'
+        packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.nupkg;!$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
+      displayName: Publish packages to general-testing
+    - task: NuGetCommand@2
+      inputs:
+        command: 'push'
+        feedsToUse: 'select'
+        vstsFeed: 'public/general-testing-symbols'
+        packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
+      displayName: Publish symbols to general-testing-symbols
     - task: PublishBuildArtifacts@1
       displayName: Upload artifacts
       condition: eq(variables['system.pullrequest.isfork'], false)
@@ -131,4 +146,4 @@ jobs:
         pathtoPublish: artifacts/
         artifactName: artifacts-AspnetWebHooks-Signed
         artifactType: Container
-        parallel: true 
+        parallel: true
