@@ -128,14 +128,14 @@ jobs:
       inputs:
         command: 'push'
         feedsToUse: 'select'
-        vstsFeed: 'public/general-testing'
+        publishVstsFeed: 'public/general-testing'
         packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.nupkg;!$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
       displayName: Publish packages to general-testing
     - task: NuGetCommand@2
       inputs:
         command: 'push'
         feedsToUse: 'select'
-        vstsFeed: 'public/general-testing-symbols'
+        publishVstsFeed: 'public/general-testing-symbols'
         packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
       displayName: Publish symbols to general-testing-symbols
     - task: PublishBuildArtifacts@1
