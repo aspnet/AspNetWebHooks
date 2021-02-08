@@ -69,13 +69,6 @@ jobs:
             $(BuildScriptArgs)
             /bl:artifacts/logs/Build-Release.binlog
     displayName: Build (Release)
-  - task: CopyFiles@2
-    displayName: Copy logs to artifacts/
-    inputs:
-      sourceFolder: $(Build.SourcesDirectory)/bin/
-      contents: 'logs/**'
-      targetFolder: $(Build.SourcesDirectory)/artifacts/
-  - task: CopyFiles@2
     displayName: Copy packages to artifacts/
     inputs:
       sourceFolder: $(Build.SourcesDirectory)/bin/
@@ -146,11 +139,20 @@ jobs:
         packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
       displayName: Publish symbols to general-testing-symbols
     - task: PublishBuildArtifacts@1
-      displayName: Upload artifacts
+      displayName: Upload packages
       condition: eq(variables['system.pullrequest.isfork'], false)
       continueOnError: true
       inputs:
-        pathtoPublish: artifacts/
-        artifactName: artifacts-AspnetWebHooks-Signed
+        pathtoPublish: artifacts/packages/
+        artifactName: artifacts-AspnetWebHooks-Signed-packages
+        artifactType: Container
+        parallel: true
+    - task: PublishBuildArtifacts@1
+      displayName: Upload logs
+      condition: eq(variables['system.pullrequest.isfork'], false)
+      continueOnError: true
+      inputs:
+        pathtoPublish: artifacts/logs/
+        artifactName: artifacts-AspnetWebHooks-Signed-logs
         artifactType: Container
         parallel: true
