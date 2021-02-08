@@ -84,10 +84,12 @@ jobs:
     condition: eq(variables['system.pullrequest.isfork'], false)
     continueOnError: true
     inputs:
-      pathtoPublish: artifacts/
+      pathtoPublish: $(Build.SourcesDirectory)/artifacts/
       artifactName: artifacts-AspnetWebHooks
       artifactType: Container
-      parallel: true 
+      parallel: true
+      FileCopyOptions: /xd "$(Build.SourcesDirectory)/artifacts/CodeAnalysis" "$(Build.SourcesDirectory)/artifacts/Test"
+                       /xf *.dll *.xml *.pdb
 
 - ${{ if eq(variables['System.TeamProject'], 'internal') }}:
   - job: Webhooks_Signed_Build

@@ -1,6 +1,0 @@
-syntax: glob
-
-artifacts/CodeAnalysis/**/*
-artifacts/Test/**/*
-artifacts/Release/**/*
-!artifacts/Release/**/*.nupkg
