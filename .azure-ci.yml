@@ -1,5 +1,7 @@
-# Don't run CI for this config yet. We're not ready to move official builds on to Azure Pipelines
-trigger: none
+trigger:
+  branches:
+    include:
+    - master
 
 # Run PR validation on all branches
 pr:
@@ -91,7 +93,7 @@ jobs:
   - job: Webhooks_Signed_Build
     displayName: Build AspnetWebHooks-Signed
     dependsOn: Webhooks_Build
-    timeoutInMinutes: 180
+    timeoutInMinutes: 60
     workspace:
       clean: all
     pool:
