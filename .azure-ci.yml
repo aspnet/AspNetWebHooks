@@ -70,10 +70,16 @@ jobs:
             /bl:artifacts/logs/Build-Release.binlog
     displayName: Build (Release)
   - task: CopyFiles@2
-    displayName: Copy output to artifacts/
+    displayName: Copy logs to artifacts/
     inputs:
       sourceFolder: $(Build.SourcesDirectory)/bin/
-      contents: '**'
+      contents: 'logs/**'
+      targetFolder: $(Build.SourcesDirectory)/artifacts/
+  - task: CopyFiles@2
+    displayName: Copy packages to artifacts/
+    inputs:
+      sourceFolder: $(Build.SourcesDirectory)/bin/
+      contents: 'Release/**/*.nupkg'
       targetFolder: $(Build.SourcesDirectory)/artifacts/
   - task: CmdLine@2
     inputs:
@@ -88,8 +94,6 @@ jobs:
       artifactName: artifacts-AspnetWebHooks
       artifactType: Container
       parallel: true
-      FileCopyOptions: /xd "$(Build.SourcesDirectory)/artifacts/CodeAnalysis" "$(Build.SourcesDirectory)/artifacts/Test"
-                       /xf *.dll *.xml *.pdb
 
 - ${{ if eq(variables['System.TeamProject'], 'internal') }}:
   - job: Webhooks_Signed_Build
