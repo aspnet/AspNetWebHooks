@@ -70,6 +70,7 @@ jobs:
             $(BuildScriptArgs)
             /bl:artifacts/logs/Build-Release.binlog
     displayName: Build (Release)
+  - task: CopyFiles@2
     displayName: Copy packages to artifacts/
     inputs:
       sourceFolder: $(Build.SourcesDirectory)/bin/
