@@ -15,7 +15,6 @@ resources:
     type: github
     endpoint: aspnet
     name: aspnet/AspnetWebHooks-Signed
-    ref: wtgodbe/SignTool
 
 variables:
 - ${{ if eq(variables['System.TeamProject'], 'public') }}:
