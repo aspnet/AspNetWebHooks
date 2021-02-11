@@ -150,7 +150,6 @@ jobs:
         parallel: true
     - task: PublishBuildArtifacts@1
       displayName: Upload logs
-      condition: eq(variables['system.pullrequest.isfork'], false)
       continueOnError: true
       inputs:
         pathtoPublish: artifacts/logs/
