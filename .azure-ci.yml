@@ -125,20 +125,21 @@ jobs:
               $(BuildScriptArgs)
               /bl:artifacts/logs/Build-Sign.binlog
       displayName: Build & Sign
-    - task: NuGetCommand@2
-      inputs:
-        command: 'push'
-        feedsToUse: 'select'
-        publishVstsFeed: 'public/general-testing'
-        packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.nupkg;!$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
-      displayName: Publish packages to general-testing
-    - task: NuGetCommand@2
-      inputs:
-        command: 'push'
-        feedsToUse: 'select'
-        publishVstsFeed: 'public/general-testing-symbols'
-        packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
-      displayName: Publish symbols to general-testing-symbols
+    - ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}:
+      - task: NuGetCommand@2
+        inputs:
+          command: 'push'
+          feedsToUse: 'select'
+          publishVstsFeed: 'public/general-testing'
+          packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.nupkg;!$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
+        displayName: Publish packages to general-testing
+      - task: NuGetCommand@2
+        inputs:
+          command: 'push'
+          feedsToUse: 'select'
+          publishVstsFeed: 'public/general-testing-symbols'
+          packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
+        displayName: Publish symbols to general-testing-symbols
     - task: PublishBuildArtifacts@1
       displayName: Upload packages
       condition: eq(variables['system.pullrequest.isfork'], false)
