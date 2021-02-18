@@ -125,7 +125,7 @@ jobs:
               $(BuildScriptArgs)
               /bl:artifacts/logs/Build-Sign.binlog
       displayName: Build & Sign
-    - ${{ if and(ne(variables['System.TeamProject'], 'public'), notin(variables['Build.Reason'], 'PullRequest')) }}:
+    - ${{ if notin(variables['Build.Reason'], 'PullRequest') }}:
       - task: NuGetCommand@2
         inputs:
           command: 'push'
