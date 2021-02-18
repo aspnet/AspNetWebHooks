@@ -152,7 +152,6 @@ jobs:
     - task: PublishBuildArtifacts@1
       displayName: Upload logs
       continueOnError: true
-      continueOnError: true
       inputs:
         pathtoPublish: artifacts/logs/
         artifactName: artifacts-AspnetWebHooks-Signed-logs
