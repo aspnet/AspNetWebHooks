@@ -4,7 +4,7 @@
             {
                 "old": {
                     "type": "branch",
-                    "name": "master",
+                    "name": "main",
                     "target": {
                         "message": "Initial commit with contributors\n",
                         "type": "commit",
@@ -42,19 +42,19 @@
                     },
                     "links": {
                         "html": {
-                            "href": "https://bitbucket.org/henrikfrystyknielsen/henrikntest01/branch/master"
+                            "href": "https://bitbucket.org/henrikfrystyknielsen/henrikntest01/branch/main"
                         },
                         "commits": {
-                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/commits/master"
+                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/commits/main"
                         },
                         "self": {
-                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/refs/branches/master"
+                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/refs/branches/main"
                         }
                     }
                 },
                 "new": {
                     "type": "branch",
-                    "name": "master",
+                    "name": "main",
                     "target": {
                         "message": "update\n",
                         "type": "commit",
@@ -105,13 +105,13 @@
                     },
                     "links": {
                         "html": {
-                            "href": "https://bitbucket.org/henrikfrystyknielsen/henrikntest01/branch/master"
+                            "href": "https://bitbucket.org/henrikfrystyknielsen/henrikntest01/branch/main"
                         },
                         "commits": {
-                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/commits/master"
+                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/commits/main"
                         },
                         "self": {
-                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/refs/branches/master"
+                            "href": "https://api.bitbucket.org/2.0/repositories/henrikfrystyknielsen/henrikntest01/refs/branches/main"
                         }
                     }
                 },

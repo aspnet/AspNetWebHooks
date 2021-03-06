@@ -28,7 +28,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
                     Size = 5542,
                     Authors = "Maarten Balliauw",
                     Description = "GoogleAnalyticsTracker was created to have a means of tracking specific URL's directly from C#. For example, it enables you to log API calls to Google Analytics.",
-                    LicenseUrl = new Uri("http://github.com/maartenba/GoogleAnalyticsTracker/blob/master/LICENSE.md"),
+                    LicenseUrl = new Uri("http://github.com/maartenba/GoogleAnalyticsTracker/blob/main/LICENSE.md"),
                     LicenseNames = "MS-PL",
                     ProjectUrl = new Uri("http://github.com/maartenba/GoogleAnalyticsTracker"),
                     Tags = "google analytics ga mvc api rest client tracker stats statistics",

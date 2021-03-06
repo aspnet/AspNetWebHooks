@@ -20,17 +20,17 @@ namespace Microsoft.AspNet.WebHooks
                 CreatedDate = "2016-06-26T18:10:31.3603573Z".ToDateTime(),
                 DetailedMessage = new PayloadMessage()
                 {
-                    Html = "John Smith pushed 1 commit to branch <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmaster\\\">master</a> of <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/\\\">Project</a>\\r\\n<ul>\\r\\n<li>A meaningful commit message. <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/commit/c8e823a60a85381732726d6a9b6a276e71e6ce12\\\">c8e823a6</a></li>\\r\\n</ul>",
-                    Markdown = "John Smith pushed 1 commit to branch [master](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmaster) of [Project](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/)\\r\\n* A meaningful commit message. [c8e823a6](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/commit/c8e823a60a85381732726d6a9b6a276e71e6ce12)",
-                    Text = "John Smith pushed 1 commit to branch master of Project\\r\\n - A meaningful commit message. c8e823a6 (https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/commit/c8e823a60a85381732726d6a9b6a276e71e6ce12)"
+                    Html = "John Smith pushed 1 commit to branch <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmain\\\">main</a> of <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/\\\">Project</a>\\r\\n<ul>\\r\\n<li>A meaningful commit message. <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/commit/c8e823a60a85381732726d6a9b6a276e71e6ce12\\\">c8e823a6</a></li>\\r\\n</ul>",
+                    Markdown = "John Smith pushed 1 commit to branch [main](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmain) of [Project](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/)\\r\\n* A meaningful commit message. [c8e823a6](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/commit/c8e823a60a85381732726d6a9b6a276e71e6ce12)",
+                    Text = "John Smith pushed 1 commit to branch main of Project\\r\\n - A meaningful commit message. c8e823a6 (https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/commit/c8e823a60a85381732726d6a9b6a276e71e6ce12)"
                 },
                 EventType = "git.push",
                 Id = "cd159468-0509-48d9-960d-6f3ba627fd06",
                 Message = new PayloadMessage()
                 {
-                    Html = "John Smith pushed updates to branch <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmaster\\\">master</a> of <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/\\\">Project</a>",
-                    Markdown = "John Smith pushed updates to branch [master](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmaster) of [Project](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/)",
-                    Text = "John Smith pushed updates to branch master of Project\\r\\n(https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmaster)"
+                    Html = "John Smith pushed updates to branch <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmain\\\">main</a> of <a href=\\\"https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/\\\">Project</a>",
+                    Markdown = "John Smith pushed updates to branch [main](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmain) of [Project](https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/)",
+                    Text = "John Smith pushed updates to branch main of Project\\r\\n(https://good-company.some.ssl.host/tfs/GoodCompany/_git/Project/#version=GBmain)"
                 },
                 NotificationId = 9,
                 PublisherId = "tfs",
@@ -71,7 +71,7 @@ namespace Microsoft.AspNet.WebHooks
                     PushId = 1168,
                     Repository = new GitRepository()
                     {
-                        DefaultBranch = "refs/heads/master",
+                        DefaultBranch = "refs/heads/main",
                         Id = "7aa31685-abcf-40be-8c18-aaa45067d7bb",
                         Name = "Project",
                         Project = new GitProject()
@@ -122,7 +122,7 @@ namespace Microsoft.AspNet.WebHooks
             expected.Resource.RefUpdates.Add(
                 new GitRefUpdate()
                 {
-                    Name = "refs/heads/master",
+                    Name = "refs/heads/main",
                     NewObjectId = "c8e823a60a85381732726d6a9b6a276e71e6ce12",
                     OldObjectId = "61b7353aa151d2d7d4e4dac8f701b0d82ff87703"
                 });

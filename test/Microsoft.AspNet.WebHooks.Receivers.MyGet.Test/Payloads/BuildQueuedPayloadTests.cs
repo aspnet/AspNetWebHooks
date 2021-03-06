@@ -20,7 +20,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
                 FeedIdentifier = "sample-feed",
                 FeedUrl = new Uri("https://www.myget.org/F/sample-feed/"),
                 Name = "SampleBuild",
-                Branch = "master"
+                Branch = "main"
             };
 
             // Act

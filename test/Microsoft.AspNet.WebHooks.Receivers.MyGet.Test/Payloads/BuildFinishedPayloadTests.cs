@@ -21,7 +21,7 @@ namespace Microsoft.AspNet.WebHooks.Payloads
                 FeedIdentifier = "sample-feed",
                 FeedUrl = new Uri("https://www.myget.org/F/sample-feed/"),
                 Name = "SampleBuild",
-                Branch = "master",
+                Branch = "main",
                 BuildLogUrl = new Uri("https://www.myget.org/BuildSource/List/sample-feed#d510be3d-7803-43cc-8d15-e327ba999ba7"),
             };
             expected.Packages.Add(new Package

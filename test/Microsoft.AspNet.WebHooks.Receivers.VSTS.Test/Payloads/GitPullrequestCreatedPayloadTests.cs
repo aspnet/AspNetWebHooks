@@ -49,7 +49,7 @@ namespace Microsoft.AspNet.WebHooks
                             Url = new Uri("https://fabrikam.visualstudio.com/DefaultCollection/_apis/projects/6ce954b1-ce1f-45d1-b94d-e6bf2464ba2c"),
                             State = "wellFormed"
                         },
-                        DefaultBranch = "refs/heads/master",
+                        DefaultBranch = "refs/heads/main",
                         RemoteUrl = new Uri("https://fabrikam.visualstudio.com/DefaultCollection/_git/Fabrikam")
                     },
                     PullRequestId = 1,
@@ -66,7 +66,7 @@ namespace Microsoft.AspNet.WebHooks
                     Title = "my first pull request",
                     Description = " - test2\r\n",
                     SourceRefName = "refs/heads/mytopic",
-                    TargetRefName = "refs/heads/master",
+                    TargetRefName = "refs/heads/main",
                     MergeStatus = "succeeded",
                     MergeId = "a10bb228-6ba6-4362-abd7-49ea21333dbd",
                     LastMergeSourceCommit = new GitMergeCommit
