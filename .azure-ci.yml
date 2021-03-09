@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-    - master
+    - main
 
 # Run PR validation on all branches
 pr:
@@ -102,7 +102,7 @@ jobs:
     variables:
       TeamName: AspNetCore
       _SignType: real
-      DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Skip signing telemetry to work around an error 
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Skip signing telemetry to work around an error
     steps:
     - checkout: AspnetWebHooks-Signed
       clean: true

@@ -25,7 +25,7 @@
                 "url": "https://fabrikam.visualstudio.com/DefaultCollection/_apis/projects/6ce954b1-ce1f-45d1-b94d-e6bf2464ba2c",
                 "state": "wellFormed"
             },
-            "defaultBranch": "refs/heads/master",
+            "defaultBranch": "refs/heads/main",
             "remoteUrl": "https://fabrikam.visualstudio.com/DefaultCollection/_git/Fabrikam"
         },
         "pullRequestId": 1,
@@ -41,7 +41,7 @@
         "title": "my first pull request",
         "description": " - test2\r\n",
         "sourceRefName": "refs/heads/mytopic",
-        "targetRefName": "refs/heads/master",
+        "targetRefName": "refs/heads/main",
         "mergeStatus": "succeeded",
         "mergeId": "a10bb228-6ba6-4362-abd7-49ea21333dbd",
         "lastMergeSourceCommit": {

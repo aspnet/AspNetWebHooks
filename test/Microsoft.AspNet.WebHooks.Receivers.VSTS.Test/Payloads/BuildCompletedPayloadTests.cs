@@ -61,7 +61,7 @@ namespace Microsoft.AspNet.WebHooks
                         Url = new Uri("https://good-company.some.ssl.host/DefaultCollection/_apis/resources/Containers/3/logs"),
                         DownloadUrl = new Uri("https://good-company.some.ssl.host/_apis/resources/Containers/3/logs?api-version=1.0&$format=zip&downloadFileName=ConsumerAddressModule_20150407.1_logs")
                     },
-                    SourceGetVersion = "LG:refs/heads/master:600c52d2d5b655caa111abfd863e5a9bd304bb0e",
+                    SourceGetVersion = "LG:refs/heads/main:600c52d2d5b655caa111abfd863e5a9bd304bb0e",
                     LastChangedBy = new ResourceUser
                     {
                         Id = "d6245f20-2af8-44f4-9451-8107cb2767db",
