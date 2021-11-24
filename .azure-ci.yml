@@ -31,7 +31,7 @@ jobs:
   workspace:
     clean: all
   pool:
-    vmImage: vs2017-win2016
+    vmImage: windows-latest
     ${{ if ne(variables['System.TeamProject'], 'public') }}:
       # This override makes the specified vmImage irrelevant.
       name: NetCoreInternal-Pool
