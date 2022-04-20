@@ -31,11 +31,12 @@ jobs:
   workspace:
     clean: all
   pool:
-    vmImage: windows-latest
+    ${{ if eq(variables['System.TeamProject'], 'public') }}:
+      name: NetCore1ESPool-Public
+      demands: ImageOverride -equals build.windows.10.amd64.vs2017.open
     ${{ if ne(variables['System.TeamProject'], 'public') }}:
-      # This override makes the specified vmImage irrelevant.
-      name: NetCoreInternal-Pool
-      queue: BuildPool.Server.Amd64.VS2017
+      name: NetCore1ESPool-Internal
+      demands: ImageOverride -equals build.windows.10.amd64.vs2017
   steps:
   - checkout: self
     clean: true
