@@ -70,13 +70,13 @@
   </Target>
 
   <Target Name="RestoreSkipStrongNames" DependsOnTargets="DownloadNuGet">
-    <Exec Command='"$(NuGetExe)" restore .nuget\packages.config -PackagesDirectory packages -NonInteractive -Verbosity quiet -ConfigFile .nuget\NuGet.Config' />
+    <Exec Command='"$(NuGetExe)" restore .nuget\packages.config -PackagesDirectory packages -NonInteractive -Verbosity quiet -ConfigFile NuGet.Config' />
   </Target>
 
   <Target Name="RestorePackages" DependsOnTargets="DownloadNuGet">
     <Message Text="Restoring NuGet packages..." Importance="High" />
     <Exec Command='SET BuildNumber=$(BuildNumber)
-"$(NuGetExe)" restore "%(SolutionsToBuild.Identity)" -PackagesDirectory packages -NonInteractive -Verbosity quiet -ConfigFile "$(MsBuildThisFileDirectory)\.nuget\NuGet.Config"' />
+"$(NuGetExe)" restore "%(SolutionsToBuild.Identity)" -PackagesDirectory packages -NonInteractive -Verbosity quiet -ConfigFile "$(MsBuildThisFileDirectory)\NuGet.Config"' />
   </Target>
 
   <Target Name="BuildPackages" DependsOnTargets="UnitTest">

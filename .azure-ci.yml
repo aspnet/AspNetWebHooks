@@ -52,7 +52,7 @@ jobs:
     inputs:
       restoreSolution: $(Build.SourcesDirectory)\AspNetWebHooks.sln
       feedsToUse: config
-      nugetConfigPath: $(Build.SourcesDirectory)\.nuget\NuGet.config
+      nugetConfigPath: $(Build.SourcesDirectory)\NuGet.config
   - script: .\build.cmd
             EnableSkipStrongNames
             $(BuildScriptArgs)
