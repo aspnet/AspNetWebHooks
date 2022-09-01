@@ -5,7 +5,7 @@ trigger:
 
 # Run PR validation on all branches
 pr:
-  branches: 
+  branches:
     include:
     - '*'
 
