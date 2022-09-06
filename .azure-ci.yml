@@ -13,7 +13,7 @@ resources:
   repositories:
   - repository: AspnetWebHooks-Signed
     type: github
-    endpoint: public
+    endpoint: dotnet-oauth
     name: aspnet/AspnetWebHooks-Signed
 
 variables:
