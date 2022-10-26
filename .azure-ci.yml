@@ -69,8 +69,6 @@ jobs:
     - name: Codeql.TSAEnabled
       value: ${{ eq(variables['Build.Reason'], 'Schedule') }}
   - ${{ if ne(variables.runCodeQL3000, 'true') }}:
-    - name: Codeql.SourceRoot
-      value: src
     - name: _AdditionalBuildArgs
       value:
   steps:
@@ -97,15 +95,8 @@ jobs:
   - script: .\build.cmd
             EnableSkipStrongNames
             $(BuildScriptArgs)
-            $(_AdditionalBuildArgs)
             /bl:artifacts/logs/Build-SkipStrongNames.binlog
     displayName: Build (Skip StrongNames)
-  - script: .\build.cmd
-            BuildPackages
-            /p:Configuration=CodeAnalysis
-            $(BuildScriptArgs)
-            /bl:artifacts/logs/Build-CodeAnalysis.binlog
-    displayName: Build (CodeAnalysis)
   - script: .\build.cmd
             BuildPackages
             /p:Configuration=Release
@@ -116,6 +107,12 @@ jobs:
     - task: CodeQL3000Finalize@0
       displayName: CodeQL Finalize
   - ${{ else }}:
+    - script: .\build.cmd
+          BuildPackages
+          /p:Configuration=CodeAnalysis
+          $(BuildScriptArgs)
+          /bl:artifacts/logs/Build-CodeAnalysis.binlog
+      displayName: Build (CodeAnalysis)
     - task: CopyFiles@2
       displayName: Copy packages to artifacts/
       inputs:
