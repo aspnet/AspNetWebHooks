@@ -68,6 +68,11 @@ jobs:
     # CodeQL3000 needs this plumbed along as a variable to enable TSA.
     - name: Codeql.TSAEnabled
       value: ${{ eq(variables['Build.Reason'], 'Schedule') }}
+  - ${{ if ne(variables.runCodeQL3000, 'true') }}:
+    - name: Codeql.SourceRoot
+      value: src
+    - name: _AdditionalBuildArgs
+      value:
   steps:
   - checkout: self
     clean: true
