@@ -52,16 +52,23 @@ jobs:
       demands: ImageOverride -equals build.windows.10.amd64.vs2017
   variables:
   - ${{ if eq(variables.runCodeQL3000, 'true') }}:
-    - Codeql.SourceRoot: src
-    - _AdditionalBuildArgs: /p:Test=false /p:Sign=false /p:Pack=false /p:Publish=false /p:UseSharedCompilation=false
+    - name: Codeql.SourceRoot
+      value: src
+    - name:
+      _AdditionalBuildArgs
+      value: /p:Test=false /p:Sign=false /p:Pack=false /p:Publish=false /p:UseSharedCompilation=false
     # Security analysis is included in normal runs. Disable its auto-injection.
-    - skipNugetSecurityAnalysis: true
+    - name: skipNugetSecurityAnalysis
+      value: true
     # Do not let CodeQL3000 Extension gate scan frequency.
-    - Codeql.Cadence: 0
+    - name: Codeql.Cadence
+      value: 0
     # Enable CodeQL3000 unconditionally so it may be run on any branch.
-    - Codeql.Enabled: true
+    - name: Codeql.Enabled
+      value: true
     # CodeQL3000 needs this plumbed along as a variable to enable TSA.
-    - Codeql.TSAEnabled: ${{ eq(variables['Build.Reason'], 'Schedule') }}
+    - name: Codeql.TSAEnabled
+      value: ${{ eq(variables['Build.Reason'], 'Schedule') }}
   steps:
   - checkout: self
     clean: true
