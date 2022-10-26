@@ -132,7 +132,7 @@ jobs:
         artifactType: Container
         parallel: true
 
-- ${{ if and (eq(variables['System.TeamProject'], 'internal'), , ne(variables.runCodeQL3000, 'true')) }}:
+- ${{ if and (eq(variables['System.TeamProject'], 'internal'), ne(variables.runCodeQL3000, 'true')) }}:
   - job: Webhooks_Signed_Build
     displayName: Build AspnetWebHooks-Signed
     dependsOn: Webhooks_Build
