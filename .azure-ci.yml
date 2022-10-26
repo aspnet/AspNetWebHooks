@@ -27,12 +27,13 @@ pr:
     include:
     - '*'
 
-resources:
-  repositories:
-  - repository: AspnetWebHooks-Signed
-    type: github
-    endpoint: dotnet-oauth
-    name: aspnet/AspnetWebHooks-Signed
+- ${{ if ne(variables['System.TeamProject'], 'public') }}:
+  resources:
+    repositories:
+    - repository: AspnetWebHooks-Signed
+      type: git
+      endpoint: aspnet
+      name: aspnet-AspNetWebHooks-Signed
 
 variables:
 - ${{ if eq(variables['System.TeamProject'], 'public') }}:
