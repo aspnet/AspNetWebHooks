@@ -27,14 +27,6 @@ pr:
     include:
     - '*'
 
-resources:
-  repositories:
-  - ${{ if ne(variables['System.TeamProject'], 'public') }}:
-    - repository: AspnetWebHooks-Signed
-      type: git
-      endpoint: aspnet
-      name: aspnet-AspNetWebHooks-Signed
-
 variables:
 - ${{ if eq(variables['System.TeamProject'], 'public') }}:
   - name: BuildScriptArgs
@@ -148,7 +140,7 @@ jobs:
       _SignType: real
       DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Skip signing telemetry to work around an error
     steps:
-    - checkout: AspnetWebHooks-Signed
+    - checkout: git://internal/aspnet-AspNetWebHooks-Signed
       clean: true
     - task: MicroBuildSigningPlugin@2
       displayName: Install MicroBuild Signing plugin
