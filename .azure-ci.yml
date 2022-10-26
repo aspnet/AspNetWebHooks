@@ -54,8 +54,7 @@ jobs:
   - ${{ if eq(variables.runCodeQL3000, 'true') }}:
     - name: Codeql.SourceRoot
       value: src
-    - name:
-      _AdditionalBuildArgs
+    - name: _AdditionalBuildArgs
       value: /p:Test=false /p:Sign=false /p:Pack=false /p:Publish=false /p:UseSharedCompilation=false
     # Security analysis is included in normal runs. Disable its auto-injection.
     - name: skipNugetSecurityAnalysis
