@@ -27,8 +27,8 @@ pr:
     include:
     - '*'
 
-${{ if ne(variables['System.TeamProject'], 'public') }}:
-  resources:
+resources:
+  - ${{ if ne(variables['System.TeamProject'], 'public') }}:
     repositories:
     - repository: AspnetWebHooks-Signed
       type: git
