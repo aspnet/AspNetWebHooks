@@ -105,6 +105,7 @@ jobs:
             BuildPackages
             /p:Configuration=Release
             $(BuildScriptArgs)
+            $(_AdditionalBuildArgs)
             /bl:artifacts/logs/Build-Release.binlog
     displayName: Build (Release)
   - ${{ if eq(variables.runCodeQL3000, 'true') }}:
