@@ -84,11 +84,11 @@ jobs:
       command: custom
       arguments: 'locals all -clear'
   - ${{ if eq(variables.runCodeQL3000, 'true') }}:
+    - task: CodeQL3000Init@0
+      displayName: CodeQL Initialize
     - script: "echo ##vso[build.addbuildtag]CodeQL3000"
       displayName: 'Set CI CodeQL3000 tag'
       condition: ne(variables.CODEQL_DIST,'')
-    - task: CodeQL3000Init@0
-      displayName: CodeQL Initialize
   - task: NuGetCommand@2
     displayName: 'Restore Solution'
     inputs:
