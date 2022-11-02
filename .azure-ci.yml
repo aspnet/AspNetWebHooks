@@ -69,7 +69,8 @@ jobs:
     - name: Codeql.TSAEnabled
       value: ${{ eq(variables['Build.Reason'], 'Schedule') }}
     # Default expects tsaoptions.json under SourceRoot.
-    - Codeql.TSAOptionsPath: '$(Build.SourcesDirectory)/.config/tsaoptions.json'
+    - name: Codeql.TSAOptionsPath
+      value: '$(Build.SourcesDirectory)/.config/tsaoptions.json'
   - ${{ if ne(variables.runCodeQL3000, 'true') }}:
     - name: _AdditionalBuildArgs
       value:
