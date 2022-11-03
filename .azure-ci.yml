@@ -1,3 +1,21 @@
+schedules:
+- cron: 0 9 * * 1
+  displayName: "Run CodeQL3000 weekly, Monday at 2:00 AM PDT"
+  branches:
+    include:
+    - main
+  always: true
+
+parameters:
+# Parameter below is ignored in public builds.
+#
+# Choose whether to run the CodeQL3000 tasks.
+# Manual builds align w/ official builds unless this parameter is true.
+- name: runCodeQL3000
+  default: false
+  displayName: Run CodeQL3000 tasks
+  type: boolean
+
 trigger:
   branches:
     include:
@@ -9,13 +27,6 @@ pr:
     include:
     - '*'
 
-resources:
-  repositories:
-  - repository: AspnetWebHooks-Signed
-    type: github
-    endpoint: dotnet-oauth
-    name: aspnet/AspnetWebHooks-Signed
-
 variables:
 - ${{ if eq(variables['System.TeamProject'], 'public') }}:
   - name: BuildScriptArgs
@@ -23,6 +34,8 @@ variables:
 - ${{ if ne(variables['System.TeamProject'], 'public') }}:
   - name: BuildScriptArgs
     value: '/p:BuildNumber=$(Build.BuildId)'
+- name: runCodeQL3000
+  value: ${{ and(ne(variables['System.TeamProject'], 'public'), or(eq(variables['Build.Reason'], 'Schedule'), and(eq(variables['Build.Reason'], 'Manual'), eq(parameters.runCodeQL3000, 'true')))) }}
 
 jobs:
 - job: Webhooks_Build
@@ -37,6 +50,30 @@ jobs:
     ${{ if ne(variables['System.TeamProject'], 'public') }}:
       name: NetCore1ESPool-Internal
       demands: ImageOverride -equals build.windows.10.amd64.vs2017
+  variables:
+  - ${{ if eq(variables.runCodeQL3000, 'true') }}:
+    - name: _AdditionalBuildArgs
+      value: /p:Test=false /p:Sign=false /p:Pack=false /p:Publish=false /p:UseSharedCompilation=false
+    # Security analysis is included in normal runs. Disable its auto-injection.
+    - name: skipNugetSecurityAnalysis
+      value: true
+    - name: Codeql.SourceRoot
+      value: src
+    # Do not let CodeQL3000 Extension gate scan frequency.
+    - name: Codeql.Cadence
+      value: 0
+    # Enable CodeQL3000 unconditionally so it may be run on any branch.
+    - name: Codeql.Enabled
+      value: true
+    # CodeQL3000 needs this plumbed along as a variable to enable TSA.
+    - name: Codeql.TSAEnabled
+      value: ${{ eq(variables['Build.Reason'], 'Schedule') }}
+    # Default expects tsaoptions.json under SourceRoot.
+    - name: Codeql.TSAOptionsPath
+      value: '$(Build.SourcesDirectory)/.config/tsaoptions.json'
+  - ${{ if ne(variables.runCodeQL3000, 'true') }}:
+    - name: _AdditionalBuildArgs
+      value:
   steps:
   - checkout: self
     clean: true
@@ -47,6 +84,12 @@ jobs:
     inputs:
       command: custom
       arguments: 'locals all -clear'
+  - ${{ if eq(variables.runCodeQL3000, 'true') }}:
+    - task: CodeQL3000Init@0
+      displayName: CodeQL Initialize
+    - script: "echo ##vso[build.addbuildtag]CodeQL3000"
+      displayName: 'Set CI CodeQL3000 tag'
+      condition: ne(variables.CODEQL_DIST,'')
   - task: NuGetCommand@2
     displayName: 'Restore Solution'
     inputs:
@@ -60,37 +103,42 @@ jobs:
     displayName: Build (Skip StrongNames)
   - script: .\build.cmd
             BuildPackages
-            /p:Configuration=CodeAnalysis
-            $(BuildScriptArgs)
-            /bl:artifacts/logs/Build-CodeAnalysis.binlog
-    displayName: Build (CodeAnalysis)
-  - script: .\build.cmd
-            BuildPackages
             /p:Configuration=Release
             $(BuildScriptArgs)
+            $(_AdditionalBuildArgs)
             /bl:artifacts/logs/Build-Release.binlog
     displayName: Build (Release)
-  - task: CopyFiles@2
-    displayName: Copy packages to artifacts/
-    inputs:
-      sourceFolder: $(Build.SourcesDirectory)/bin/
-      contents: 'Release/**/*.nupkg'
-      targetFolder: $(Build.SourcesDirectory)/artifacts/
-  - task: CmdLine@2
-    inputs:
-      script: 'git rev-parse HEAD > artifacts/commit'
-    displayName: Create commit file
-  - task: PublishBuildArtifacts@1
-    displayName: Upload artifacts
-    condition: eq(variables['system.pullrequest.isfork'], false)
-    continueOnError: true
-    inputs:
-      pathtoPublish: $(Build.SourcesDirectory)/artifacts/
-      artifactName: artifacts-AspnetWebHooks
-      artifactType: Container
-      parallel: true
+  - ${{ if eq(variables.runCodeQL3000, 'true') }}:
+    - task: CodeQL3000Finalize@0
+      displayName: CodeQL Finalize
+  - ${{ else }}:
+    - script: .\build.cmd
+          BuildPackages
+          /p:Configuration=CodeAnalysis
+          $(BuildScriptArgs)
+          /bl:artifacts/logs/Build-CodeAnalysis.binlog
+      displayName: Build (CodeAnalysis)
+    - task: CopyFiles@2
+      displayName: Copy packages to artifacts/
+      inputs:
+        sourceFolder: $(Build.SourcesDirectory)/bin/
+        contents: 'Release/**/*.nupkg'
+        targetFolder: $(Build.SourcesDirectory)/artifacts/
+    - task: CmdLine@2
+      inputs:
+        script: 'git rev-parse HEAD > artifacts/commit'
+      displayName: Create commit file
+    - task: PublishBuildArtifacts@1
+      displayName: Upload artifacts
+      condition: eq(variables['system.pullrequest.isfork'], false)
+      continueOnError: true
+      inputs:
+        pathtoPublish: $(Build.SourcesDirectory)/artifacts/
+        artifactName: artifacts-AspnetWebHooks
+        artifactType: Container
+        parallel: true
 
-- ${{ if eq(variables['System.TeamProject'], 'internal') }}:
+- ${{ if and(eq(variables['System.TeamProject'], 'internal'), ne(variables.runCodeQL3000, 'true')) }}:
   - job: Webhooks_Signed_Build
     displayName: Build AspnetWebHooks-Signed
     dependsOn: Webhooks_Build
@@ -98,14 +146,14 @@ jobs:
     workspace:
       clean: all
     pool:
-      name: NetCoreInternal-Pool
-      queue: BuildPool.Server.Amd64.VS2019
+      name: NetCore1ESPool-Internal
+      demands: ImageOverride -equals build.windows.10.amd64.vs2017
     variables:
       TeamName: AspNetCore
       _SignType: real
       DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Skip signing telemetry to work around an error
     steps:
-    - checkout: AspnetWebHooks-Signed
+    - checkout: git://internal/aspnet-AspNetWebHooks-Signed
       clean: true
     - task: MicroBuildSigningPlugin@2
       displayName: Install MicroBuild Signing plugin
