@@ -7,7 +7,7 @@ mkdir bin
 
 :Build
 
-REM Find the most recent 32bit MSBuild.exe on the system. Require v15.0 (installed with VS2017) or later.
+REM Find the most recent 32-bit MSBuild.exe on the system. Require v15.0 (installed with VS2017) or later.
 REM Use `vswhere` for the search since %ProgramFiles(x86)%\msbuild\15.0\Bin\MSBuild.exe almost never exists.
 set vswhere="%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
 if not exist %vswhere% (
