@@ -147,7 +147,7 @@ jobs:
       clean: all
     pool:
       name: NetCore1ESPool-Svc-Internal
-      demands: ImageOverride -equals windows.vs2017.amd64
+      demands: ImageOverride -equals windows.vs2019.amd64
     variables:
       TeamName: AspNetCore
       _SignType: real
