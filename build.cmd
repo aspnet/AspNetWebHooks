@@ -50,16 +50,20 @@ if not exist %StorageEmulator% (
 
 if "%1" == "" goto BuildDefaults
 
-%MSBuild% AspNetWebHooks.msbuild /m /nr:false /p:Platform="Any CPU" /p:Desktop=true /v:M /fl /flp:LogFile=bin\msbuild.log;Verbosity=Normal /t:%*
+%MSBuild% AspNetWebHooks.msbuild /m /nr:false /p:Platform="Any CPU" /p:Desktop=true /v:M /fl ^
+    /flp:LogFile=bin\msbuild.log;Verbosity=Normal /consoleLoggerParameters:Summary /t:%*
 if %ERRORLEVEL% neq 0 goto BuildFail
 goto BuildSuccess
 
 :BuildDefaults
-%MSBuild% AspNetWebHooks.msbuild /m /nr:false /p:Platform="Any CPU" /p:Desktop=true /v:M /fl /flp:LogFile=bin\msbuild.log;Verbosity=Normal
+%MSBuild% AspNetWebHooks.msbuild /m /nr:false /p:Platform="Any CPU" /p:Desktop=true /v:M /fl ^
+    /flp:LogFile=bin\msbuild.log;Verbosity=Normal /consoleLoggerParameters:Summary
 if %ERRORLEVEL% neq 0 goto BuildFail
 goto BuildSuccess
 
 :BuildFail
+%StorageEmulator% stop 2> NUL
+%StorageEmulator% clear 2> NUL
 echo.
 echo *** BUILD FAILED ***
 popd
@@ -67,6 +71,8 @@ endlocal
 exit /B 999
 
 :BuildSuccess
+%StorageEmulator% stop 2> NUL
+%StorageEmulator% clear 2> NUL
 echo.
 echo **** BUILD SUCCESSFUL ***
 popd

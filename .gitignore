@@ -19,3 +19,4 @@ _[Ss]cripts
 *.pubxml
 *.zip
 *launchSettings.json
+*.binlog
