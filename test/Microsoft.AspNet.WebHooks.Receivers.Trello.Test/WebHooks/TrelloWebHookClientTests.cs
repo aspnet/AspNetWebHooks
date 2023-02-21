@@ -67,7 +67,7 @@ namespace Microsoft.AspNet.WebHooks
             Assert.Equal(expectedTrelloUri, request.RequestUri.AbsoluteUri);
 
             JObject data = await request.Content.ReadAsAsync<JObject>();
-            Assert.Equal(_receiver.AbsoluteUri, data["callbackURL"]);
+            Assert.Equal(_receiver.AbsoluteUri, (string)data["callbackURL"]);
             Assert.Equal(TestModelId, data["idModel"]);
             Assert.Equal(TestDescription, data["description"]);
 

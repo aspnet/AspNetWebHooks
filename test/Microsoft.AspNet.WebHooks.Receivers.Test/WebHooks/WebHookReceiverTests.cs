@@ -359,7 +359,7 @@ namespace Microsoft.AspNet.WebHooks
 
             // Assert
             var error = await ex.Response.Content.ReadAsAsync<HttpError>();
-            Assert.Equal("The WebHook request contained invalid JSON: 'Error parsing positive infinity value. Path '', line 0, position 0.'.", error.Message);
+            Assert.Equal("The WebHook request contained invalid JSON: 'Error parsing Infinity value. Path '', line 1, position 1.'.", error.Message);
         }
 
         [Fact]
@@ -433,7 +433,7 @@ namespace Microsoft.AspNet.WebHooks
 
             // Assert
             var error = await ex.Response.Content.ReadAsAsync<HttpError>();
-            Assert.Equal("The WebHook request contained invalid JSON: 'Error parsing positive infinity value. Path '', line 0, position 0.'.", error.Message);
+            Assert.Equal("The WebHook request contained invalid JSON: 'Error parsing Infinity value. Path '', line 1, position 1.'.", error.Message);
         }
 
         [Fact]

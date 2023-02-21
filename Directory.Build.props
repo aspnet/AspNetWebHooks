@@ -1,3 +1,11 @@
 <Project>
   <!-- Stop MsBuild searching parent directories for this file. -->
+
+  <PropertyGroup>
+    <!--
+      Suppress "MSBUILD : warning : Post-build Code Analysis (FxCopCmd.exe) has been deprecated in favor of FxCop
+      analyzers, which run during build. Refer to https://aka.ms/fxcopanalyzers to migrate to FxCop analyzers."
+    -->
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+  </PropertyGroup>
 </Project>
