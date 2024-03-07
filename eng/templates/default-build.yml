@@ -4,8 +4,8 @@ jobs:
   timeoutInMinutes: 60
   workspace:
     clean: all
-  pool:
-    ${{ if eq(variables['System.TeamProject'], 'public') }}:
+  ${{ if eq(variables['System.TeamProject'], 'public') }}:
+    pool:
       name: NetCore-Svc-Public
       demands: ImageOverride -equals windows.vs2019.amd64.open
   steps:
