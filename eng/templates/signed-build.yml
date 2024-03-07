@@ -46,12 +46,12 @@ jobs:
     displayName: Download artifacts
     inputs:
       artifactName: artifacts-AspnetWebHooks
-      targetPath: $(Build.StagingDirectory)/downloaded_artifacts/
+      targetPath: $(Build.StagingDirectory)
   - script: .\build.cmd
             /t:BuildProjects
             /p:Sign=Sign
             /p:SignType=$(_SignType)
-            /p:DropSource=$(Build.StagingDirectory)/downloaded_artifacts/artifacts-AspnetWebHooks/
+            /p:DropSource=$(Build.StagingDirectory)/artifacts-AspnetWebHooks/
             $(BuildScriptArgs)
             /bl:artifacts/logs/Build-Sign.binlog
     displayName: Build & Sign
