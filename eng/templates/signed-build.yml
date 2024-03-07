@@ -60,7 +60,7 @@ jobs:
     condition: eq(variables['system.pullrequest.isfork'], false)
     continueOnError: true
     inputs:
-      patht: artifacts/packages/
+      path: artifacts/packages/
       artifactName: artifacts-AspnetWebHooks-Signed-packages
   - task: 1ES.PublishPipelineArtifact@1
     displayName: Upload logs
