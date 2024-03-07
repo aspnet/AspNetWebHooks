@@ -1,0 +1,69 @@
+jobs:
+- job: Webhooks_Build
+  displayName: Build AspnetWebHooks
+  timeoutInMinutes: 60
+  workspace:
+    clean: all
+  ${{ if eq(variables['System.TeamProject'], 'public') }}:
+    pool:
+      name: NetCore-Svc-Public
+      demands: ImageOverride -equals windows.vs2019.amd64.open
+  steps:
+  - checkout: self
+    clean: true
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet.exe'
+  - task: NuGetCommand@2
+    displayName: 'Clear NuGet caches'
+    inputs:
+      command: custom
+      arguments: 'locals all -clear'
+  - task: NuGetCommand@2
+    displayName: 'Restore Solution'
+    inputs:
+      restoreSolution: $(Build.SourcesDirectory)\AspNetWebHooks.sln
+      feedsToUse: config
+      nugetConfigPath: $(Build.SourcesDirectory)\NuGet.config
+  - script: .\build.cmd
+            EnableSkipStrongNames
+            $(BuildScriptArgs)
+            /bl:artifacts/logs/Build-SkipStrongNames.binlog
+    displayName: Build (Skip StrongNames)
+  - script: .\build.cmd
+            BuildPackages
+            /p:Configuration=CodeAnalysis
+            $(BuildScriptArgs)
+            /bl:artifacts/logs/Build-CodeAnalysis.binlog
+    displayName: Build (CodeAnalysis)
+  - script: .\build.cmd
+            BuildPackages
+            /p:Configuration=Release
+            $(BuildScriptArgs)
+            /bl:artifacts/logs/Build-Release.binlog
+    displayName: Build (Release)
+  - task: CopyFiles@2
+    displayName: Copy packages to artifacts/
+    inputs:
+      sourceFolder: $(Build.SourcesDirectory)/bin/
+      contents: 'Release/**/*.nupkg'
+      targetFolder: $(Build.SourcesDirectory)/artifacts/
+  - task: CmdLine@2
+    inputs:
+      script: 'git rev-parse HEAD > artifacts/commit'
+    displayName: Create commit file
+  - ${{ if eq(variables['System.TeamProject'], 'public') }}:
+    - task: PublishBuildArtifacts@1
+      displayName: Upload artifacts
+      condition: eq(variables['system.pullrequest.isfork'], false)
+      continueOnError: true
+      inputs:
+        pathtoPublish: $(Build.SourcesDirectory)/artifacts/
+        artifactName: artifacts-AspnetWebHooks
+        artifactType: Container
+        parallel: true
+  - ${{ if eq(variables['System.TeamProject'], 'internal') }}: 
+    - task: 1ES.PublishPipelineArtifact@1
+      condition: eq(variables['system.pullrequest.isfork'], false)
+      inputs:
+        path: $(Build.SourcesDirectory)/artifacts/
+        artifactName: artifacts-AspnetWebHooks
