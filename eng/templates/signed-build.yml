@@ -12,8 +12,8 @@ jobs:
     TeamName: AspNetCore
     _SignType: real
     DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Skip signing telemetry to work around an error
+  templateContext:
   - ${{ if notin(variables['Build.Reason'], 'PullRequest') }}:
-    templateContext:
     outputs:
     - output: nuget
       displayName: Publish packages to general-testing
