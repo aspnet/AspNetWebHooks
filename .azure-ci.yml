@@ -38,3 +38,4 @@ extends:
       displayName: Build
       jobs:
       - template: /eng/templates/default-build.yml@self
+      - template: /eng/templates/signed-build.yml@self
