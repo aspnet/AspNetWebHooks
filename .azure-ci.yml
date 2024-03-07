@@ -33,6 +33,10 @@ extends:
       name: NetCore1ESPool-Svc-Internal
       image: 1es-windows-2019-pt
       os: windows
+    sdl:
+      sourceRepositoriesToScan:
+        include:
+        - repository: git://internal/aspnet-AspNetWebHooks-Signed
     stages:
     - stage: build
       displayName: Build
