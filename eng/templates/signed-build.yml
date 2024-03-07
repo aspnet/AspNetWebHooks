@@ -46,7 +46,7 @@ jobs:
     displayName: Download artifacts
     inputs:
       artifactName: artifacts-AspnetWebHooks
-      targetPath: $(Build.StagingDirectory)
+      targetPath: '$(Build.StagingDirectory)'
   - script: .\build.cmd
             /t:BuildProjects
             /p:Sign=Sign
