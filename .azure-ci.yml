@@ -9,6 +9,14 @@ pr:
     include:
     - '*'
 
+resources:
+  repositories:
+  # Repo: 1ESPipelineTemplates/1ESPipelineTemplates
+  - repository: 1esPipelines
+    type: git
+    name: 1ESPipelineTemplates/1ESPipelineTemplates
+    ref: refs/tags/release
+
 variables:
 - ${{ if eq(variables['System.TeamProject'], 'public') }}:
   - name: BuildScriptArgs
@@ -17,137 +25,16 @@ variables:
   - name: BuildScriptArgs
     value: '/p:BuildNumber=$(Build.BuildId)'
 
-jobs:
-- job: Webhooks_Build
-  displayName: Build AspnetWebHooks
-  timeoutInMinutes: 60
-  workspace:
-    clean: all
-  pool:
-    ${{ if eq(variables['System.TeamProject'], 'public') }}:
-      name: NetCore-Svc-Public
-      demands: ImageOverride -equals windows.vs2019.amd64.open
-    ${{ if ne(variables['System.TeamProject'], 'public') }}:
-      name: NetCore1ESPool-Svc-Internal
-      demands: ImageOverride -equals windows.vs2019.amd64
-  steps:
-  - checkout: self
-    clean: true
-  - task: NuGetToolInstaller@1
-    displayName: 'Install NuGet.exe'
-  - task: NuGetCommand@2
-    displayName: 'Clear NuGet caches'
-    inputs:
-      command: custom
-      arguments: 'locals all -clear'
-  - task: NuGetCommand@2
-    displayName: 'Restore Solution'
-    inputs:
-      restoreSolution: $(Build.SourcesDirectory)\AspNetWebHooks.sln
-      feedsToUse: config
-      nugetConfigPath: $(Build.SourcesDirectory)\NuGet.config
-  - script: .\build.cmd
-            EnableSkipStrongNames
-            $(BuildScriptArgs)
-            /bl:artifacts/logs/Build-SkipStrongNames.binlog
-    displayName: Build (Skip StrongNames)
-  - script: .\build.cmd
-            BuildPackages
-            /p:Configuration=CodeAnalysis
-            $(BuildScriptArgs)
-            /bl:artifacts/logs/Build-CodeAnalysis.binlog
-    displayName: Build (CodeAnalysis)
-  - script: .\build.cmd
-            BuildPackages
-            /p:Configuration=Release
-            $(BuildScriptArgs)
-            /bl:artifacts/logs/Build-Release.binlog
-    displayName: Build (Release)
-  - task: CopyFiles@2
-    displayName: Copy packages to artifacts/
-    inputs:
-      sourceFolder: $(Build.SourcesDirectory)/bin/
-      contents: 'Release/**/*.nupkg'
-      targetFolder: $(Build.SourcesDirectory)/artifacts/
-  - task: CmdLine@2
-    inputs:
-      script: 'git rev-parse HEAD > artifacts/commit'
-    displayName: Create commit file
-  - task: PublishBuildArtifacts@1
-    displayName: Upload artifacts
-    condition: eq(variables['system.pullrequest.isfork'], false)
-    continueOnError: true
-    inputs:
-      pathtoPublish: $(Build.SourcesDirectory)/artifacts/
-      artifactName: artifacts-AspnetWebHooks
-      artifactType: Container
-      parallel: true
 
-- ${{ if eq(variables['System.TeamProject'], 'internal') }}:
-  - job: Webhooks_Signed_Build
-    displayName: Build AspnetWebHooks-Signed
-    dependsOn: Webhooks_Build
-    timeoutInMinutes: 60
-    workspace:
-      clean: all
+extends:
+  template: v1/1ES.Official.PipelineTemplate.yml@1esPipelines
+  parameters:
     pool:
       name: NetCore1ESPool-Svc-Internal
-      demands: ImageOverride -equals windows.vs2019.amd64
-    variables:
-      TeamName: AspNetCore
-      _SignType: real
-      DOTNET_CLI_TELEMETRY_OPTOUT: 1 # Skip signing telemetry to work around an error
-    steps:
-    - checkout: git://internal/aspnet-AspNetWebHooks-Signed
-      clean: true
-    - task: MicroBuildSigningPlugin@2
-      displayName: Install MicroBuild Signing plugin
-      inputs:
-        signType: $(_SignType)
-        zipSources: false
-        feedSource: https://dnceng.pkgs.visualstudio.com/_packaging/MicroBuildToolset/nuget/v3/index.json
-    - task: DownloadBuildArtifacts@0
-      displayName: Download artifacts
-      inputs:
-        artifactName: artifacts-AspnetWebHooks
-        downloadPath: $(Build.StagingDirectory)/downloaded_artifacts/
-    - script: .\build.cmd
-              /t:BuildProjects
-              /p:Sign=Sign
-              /p:SignType=$(_SignType)
-              /p:DropSource=$(Build.StagingDirectory)/downloaded_artifacts/artifacts-AspnetWebHooks/
-              $(BuildScriptArgs)
-              /bl:artifacts/logs/Build-Sign.binlog
-      displayName: Build & Sign
-    - ${{ if notin(variables['Build.Reason'], 'PullRequest') }}:
-      - task: NuGetCommand@2
-        inputs:
-          command: 'push'
-          feedsToUse: 'select'
-          publishVstsFeed: 'public/general-testing'
-          packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.nupkg;!$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
-        displayName: Publish packages to general-testing
-      - task: NuGetCommand@2
-        inputs:
-          command: 'push'
-          feedsToUse: 'select'
-          publishVstsFeed: 'public/general-testing-symbols'
-          packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
-        displayName: Publish symbols to general-testing-symbols
-    - task: PublishBuildArtifacts@1
-      displayName: Upload packages
-      condition: eq(variables['system.pullrequest.isfork'], false)
-      continueOnError: true
-      inputs:
-        pathtoPublish: artifacts/packages/
-        artifactName: artifacts-AspnetWebHooks-Signed-packages
-        artifactType: Container
-        parallel: true
-    - task: PublishBuildArtifacts@1
-      displayName: Upload logs
-      continueOnError: true
-      inputs:
-        pathtoPublish: artifacts/logs/
-        artifactName: artifacts-AspnetWebHooks-Signed-logs
-        artifactType: Container
-        parallel: true
+      image: 1es-windows-2019-pt
+      os: windows
+    stages:
+    - stage: build
+      displayName: Build
+      jobs:
+      - template: /eng/templates/default-build.yml@self
