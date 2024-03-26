@@ -16,7 +16,7 @@ jobs:
         displayName: Publish packages to general-testing
         useDotNetTask: false
         packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.nupkg;!$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
-        packageParentPath: '$(Build.ArtifactStagingDirectory)/'
+        packageParentPath: '$(Build.SourcesDirectory)/'
         publishVstsFeed: 'public/general-testing'
         nuGetFeedType: internal  # Change to external for external
         allowPackageConflicts: true # Optional. NuGetCommand task only.
@@ -25,7 +25,7 @@ jobs:
         displayName: Publish symbols to general-testing-symbols
         useDotNetTask: false
         packagesToPush: '$(Build.SourcesDirectory)/artifacts/packages/**/*.symbols.nupkg'
-        packageParentPath: '$(Build.ArtifactStagingDirectory)/'
+        packageParentPath: '$(Build.SourcesDirectory)/'
         publishVstsFeed: 'public/general-testing-symbols'
         nuGetFeedType: internal  # Change to external for external
         allowPackageConflicts: true # Optional. NuGetCommand task only.
