@@ -1,5 +1,5 @@
 # Microsoft ASP.NET WebHooks
-## Note: This repo is solely for the ASP.NET WebHooks projects (libraries to create and consume WebHooks on ASP.NET 4.x and .NET Framework 4.5). For ASP.NET Core WebHooks (targeting .NET Standard 2.0), see the [aspnet/AspLabs](https://github.com/aspnet/AspLabs/tree/master/src/WebHooks) repo.
+## Note: This repo is solely for the ASP.NET WebHooks projects (libraries to create and consume WebHooks on ASP.NET 4.x and .NET Framework 4.5). For ASP.NET Core WebHooks (targeting .NET Standard 2.0), see the [aspnet/AspLabs]([https://github.com/aspnet/AspLabs/tree/master/src/WebHooks](https://github.com/aspnet/AspLabs/tree/d344b31b33cfd821211082668fae190061d13ffa/src/WebHooks)) repo.
 
 **Due to other priorities this project is currently in maintenance mode only. There are no planned releases at this time. No new features are planned and we are only addressing critical issues as required.**
 
