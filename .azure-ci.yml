@@ -37,6 +37,10 @@ extends:
       sourceRepositoriesToScan:
         include:
         - repository: git://internal/aspnet-AspNetWebHooks-Signed
+      policheck:
+        enabled: true
+      tsa:
+        enabled: true
     stages:
     - stage: build
       displayName: Build
