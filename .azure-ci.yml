@@ -31,7 +31,7 @@ extends:
   parameters:
     pool:
       name: NetCore1ESPool-Svc-Internal
-      image: ImageOverride -equals windows.vs2019.amd64
+      image: windows.vs2019.amd64
       os: windows
     sdl:
       sourceRepositoriesToScan:
